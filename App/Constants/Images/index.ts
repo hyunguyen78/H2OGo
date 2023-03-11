@@ -11,4 +11,9 @@ export const IMAGES = {
   remind: require('@/Assets/Icons/Bottom/Remind.png'),
   statistics: require('@/Assets/Icons/Bottom/Statistics.png'),
   setting: require('@/Assets/Icons/Bottom/Setting.png'),
+
+  // Home
+  wave: require('@/Assets/Icons/Home/Wave.png'),
+  people: require('@/Assets/Icons/Home/People.png'),
+  cloudy: require('@/Assets/Icons/Home/Cloudy.png'),
 };

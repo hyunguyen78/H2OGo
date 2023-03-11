@@ -46,6 +46,7 @@ const DatePickerTime: React.FC<Props> = ({value, onChange}) => {
       value={value}
       mode={'time'}
       is24Hour={true}
+      accentColor={COLORS.BLUE}
       display="default"
       onChange={(event, date) => {
         if (event.type === 'set') {
