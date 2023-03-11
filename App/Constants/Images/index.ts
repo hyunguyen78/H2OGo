@@ -5,4 +5,10 @@ export const IMAGES = {
   male: require('@/Assets/Icons/AddInformation/Male.png'),
   weight: require('@/Assets/Icons/AddInformation/Weight.png'),
   clock: require('@/Assets/Icons/AddInformation/Clock.png'),
+
+  //bottom
+  home: require('@/Assets/Icons/Bottom/Home.png'),
+  remind: require('@/Assets/Icons/Bottom/Remind.png'),
+  statistics: require('@/Assets/Icons/Bottom/Statistics.png'),
+  setting: require('@/Assets/Icons/Bottom/Setting.png'),
 };

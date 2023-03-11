@@ -1,11 +1,13 @@
 import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
+import LinearGradient from 'react-native-linear-gradient';
+import {COLORS} from '@/Themes/Colors';
 
 type Props = {};
 
 const HomeScreen = (props: Props) => {
   return (
-    <View>
+    <View style={styles.container}>
       <Text>HomeScreen</Text>
     </View>
   );
@@ -13,4 +15,9 @@ const HomeScreen = (props: Props) => {
 
 export default HomeScreen;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: COLORS.BACKGROUND,
+  },
+});

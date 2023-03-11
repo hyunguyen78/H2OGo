@@ -5,4 +5,5 @@ export const COLORS = {
   BLUE: '#2f3c7e',
   PINK: '#ff68b3',
   BLACK: '#000000',
+  BACKGROUND: '#F4F4F4',
 };
