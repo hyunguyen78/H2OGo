@@ -17,12 +17,14 @@ export const IMAGES = {
   people: require('@/Assets/Icons/Home/People.png'),
   cloudy: require('@/Assets/Icons/Home/Cloudy.png'),
   loop: require('@/Assets/Icons/Home/Loop.png'),
+  dot: require('@/Assets/Icons/Home/Dot.png'),
 
   //common
 
   left: require('@/Assets/Icons/Common/Left.png'),
   right: require('@/Assets/Icons/Common/Right.png'),
   close: require('@/Assets/Icons/Common/Close.png'),
+  empty: require('@/Assets/Icons/Common/Empty.png'),
 
   //Menu water
   menuWater: require('@/Assets/Icons/MenuWater/Water.png'),

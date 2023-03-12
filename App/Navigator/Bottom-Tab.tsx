@@ -69,7 +69,6 @@ const BottomTab = (props: Props) => {
                   tintColor: color,
                   marginTop: scale(30),
                   height: scale(30),
-                  padding: scale(5),
                   width: scale(30),
                 }}
               />

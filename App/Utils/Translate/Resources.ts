@@ -17,6 +17,7 @@ export const resources = {
       tea: 'Trà',
       wine: 'Rượu vang',
       coconut: 'Nước dừa',
+      add: 'Thêm mới',
     },
     common: {
       ok: 'Đồng ý',
@@ -41,6 +42,7 @@ export const resources = {
       tea: 'Tea',
       wine: 'Wine',
       coconut: 'Coconut',
+      add: 'Add',
     },
     common: {
       ok: 'OK',
