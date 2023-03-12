@@ -17,6 +17,7 @@ type Props = {
   style?: StyleProp<TextStyle>;
   onPress: () => void;
   color?: string[];
+  fontSize?: number;
 };
 
 const ButtonLinear: React.FC<Props> = ({
@@ -24,6 +25,7 @@ const ButtonLinear: React.FC<Props> = ({
   style,
   onPress,
   color = [COLORS.BLUE, '#5cddff'],
+  fontSize = 16,
 }) => {
   return (
     <TouchableOpacity style={{flex: 1}} activeOpacity={0.5} onPress={onPress}>
@@ -32,7 +34,7 @@ const ButtonLinear: React.FC<Props> = ({
         end={{x: 1, y: 0}}
         style={[styles.container, style]}
         colors={color}>
-        <Text style={styles.title}>{title}</Text>
+        <Text style={[styles.title, {fontSize}]}>{title}</Text>
       </LinearGradient>
     </TouchableOpacity>
   );
@@ -43,7 +45,6 @@ export default ButtonLinear;
 const styles = StyleSheet.create({
   container: {
     height: scale(45),
-    marginVertical: scale(15),
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: scale(12),

@@ -3,13 +3,13 @@ import moment from 'moment';
 export const _generateGreetings = () => {
   var currentHour: any = moment().format('HH');
   if (currentHour >= 3 && currentHour < 12) {
-    return 'Good Morning';
+    return 'goodMoring';
   } else if (currentHour >= 12 && currentHour < 15) {
-    return 'Good Afternoon';
+    return 'goodAfternoon';
   } else if (currentHour >= 15 && currentHour < 20) {
-    return 'Good Evening';
+    return 'goodEvening';
   } else if (currentHour >= 20 || currentHour < 3) {
-    return 'Good Night';
+    return 'goodNight';
   } else {
     return 'Hello';
   }

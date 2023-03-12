@@ -6,12 +6,15 @@ import {IMAGES} from '@/Constants/Images';
 import {_generateGreetings} from '@/Utils/FormatTime';
 import {COLORS} from '@/Themes/Colors';
 import {TYPE} from '@/Themes/Fonts';
+import {useTranslation} from 'react-i18next';
 
 type Props = {
   showText?: boolean;
 };
 
 const WaveHeader: React.FC<Props> = ({showText = true}) => {
+  const {t} = useTranslation('home');
+
   return (
     <View style={styles.header}>
       <View style={{backgroundColor: COLORS.BLUE_LIGHT, height: scale(150)}}>
@@ -30,10 +33,10 @@ const WaveHeader: React.FC<Props> = ({showText = true}) => {
       {showText ? (
         <View style={styles.headerBox}>
           <View style={styles.headerTop}>
-            <Text style={styles.headerTopText}>Xin chào, Huy</Text>
+            <Text style={styles.headerTopText}>{t('hello')}, Huy</Text>
             <Image source={IMAGES.wave} />
           </View>
-          <Text style={styles.headerBottomText}>{_generateGreetings()}</Text>
+          <Text style={styles.headerBottomText}>{t(_generateGreetings())}</Text>
         </View>
       ) : (
         <View />

@@ -12,11 +12,15 @@ import {AnimatedCircularProgress} from 'react-native-circular-progress';
 import {fontScale, scale} from 'react-native-utils-scale';
 import {IMAGES} from '@/Constants/Images';
 import {TYPE} from '@/Themes/Fonts';
-import {_generateGreetings} from '@/Utils/FormatTime';
 import WaveHeader from '@/Components/WaveHeader';
+import ButtonMenu from './Components/ButtonMenu';
+import {useTranslation} from 'react-i18next';
+
 type Props = {};
 
 const HomeScreen = (props: Props) => {
+  const {t} = useTranslation('home');
+
   const [drank, setDrank] = useState(20);
   return (
     <SafeAreaView style={styles.container}>
@@ -34,7 +38,7 @@ const HomeScreen = (props: Props) => {
           {() => (
             <View style={styles.circleBox}>
               <Text style={styles.circleBoxPercent}>20%</Text>
-              <Text style={styles.circleTextTitle}>Mục tiêu hằng ngày</Text>
+              <Text style={styles.circleTextTitle}>{t('dailyGoal')}</Text>
               <Text style={styles.circleTextNumber}>600/2000ml</Text>
               <View style={styles.circleBoxAction}>
                 <TouchableOpacity>
@@ -54,8 +58,8 @@ const HomeScreen = (props: Props) => {
             </View>
           )}
         </AnimatedCircularProgress>
-        <View>
-          <Text>Nước lọc</Text>
+        <View style={styles.menu}>
+          <ButtonMenu value="water" />
         </View>
       </View>
     </SafeAreaView>
@@ -105,5 +109,8 @@ const styles = StyleSheet.create({
   },
   circleBoxActionIcon: {
     tintColor: COLORS.BLUE,
+  },
+  menu: {
+    marginVertical: scale(15),
   },
 });

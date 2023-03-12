@@ -1,6 +1,7 @@
 import Navigator from '@/Navigator';
 import React, {useEffect} from 'react';
 import RNBootSplash from 'react-native-bootsplash';
+import './App/Utils/Translate';
 type Props = {};
 
 const App = (props: Props) => {
