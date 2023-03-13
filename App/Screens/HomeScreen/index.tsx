@@ -28,7 +28,9 @@ const HomeScreen = (props: Props) => {
 
   return (
     <View style={styles.container}>
-      <ScrollView contentContainerStyle={{flexGrow: 1}}>
+      <ScrollView
+        contentContainerStyle={{flexGrow: 1}}
+        keyboardShouldPersistTaps="handled">
         <WaveHeader />
         <View style={styles.content}>
           <AnimatedCircularProgress

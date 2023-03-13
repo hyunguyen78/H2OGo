@@ -6,25 +6,36 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, {memo, useRef} from 'react';
+import React, {memo} from 'react';
 import {fontScale, scale} from 'react-native-utils-scale';
 import {COLORS} from '@/Themes/Colors';
 import {TYPE} from '@/Themes/Fonts';
 import {useTranslation} from 'react-i18next';
+import {modalManagementWater} from '@/Components/ModalManagementWater';
 
 type Props = {};
 
 const ChooseML = (props: Props) => {
   const {t} = useTranslation();
-  const data = [100, 200, 300, null];
+  const data = [100, 200, 300];
   const _renderItem = ({item, index}: any) => {
     return (
       <TouchableOpacity style={styles.item} activeOpacity={0.5}>
-        <Text style={styles.itemText}>{item ? item : t('home:add')}</Text>
+        <Text style={styles.itemText}>{item}ML</Text>
       </TouchableOpacity>
     );
   };
 
+  const _renderFooter = () => {
+    return (
+      <TouchableOpacity
+        onPress={() => modalManagementWater.show([])}
+        style={[styles.item, {marginHorizontal: scale(20)}]}
+        activeOpacity={0.5}>
+        <Text style={styles.itemText}>{t('home:add')}</Text>
+      </TouchableOpacity>
+    );
+  };
   return (
     <FlatList
       data={data}
@@ -35,7 +46,7 @@ const ChooseML = (props: Props) => {
       style={styles.container}
       ItemSeparatorComponent={() => <View style={{width: scale(20)}} />}
       ListHeaderComponent={() => <View style={{width: scale(10)}} />}
-      ListFooterComponent={() => <View style={{width: scale(10)}} />}
+      ListFooterComponent={_renderFooter}
     />
   );
 };

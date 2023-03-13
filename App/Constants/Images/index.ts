@@ -18,6 +18,7 @@ export const IMAGES = {
   cloudy: require('@/Assets/Icons/Home/Cloudy.png'),
   loop: require('@/Assets/Icons/Home/Loop.png'),
   dot: require('@/Assets/Icons/Home/Dot.png'),
+  glassOfWater :require('@/Assets/Icons/Home/GlassOfWater.png'),
 
   //common
 
@@ -25,6 +26,8 @@ export const IMAGES = {
   right: require('@/Assets/Icons/Common/Right.png'),
   close: require('@/Assets/Icons/Common/Close.png'),
   empty: require('@/Assets/Icons/Common/Empty.png'),
+  trash: require('@/Assets/Icons/Common/Trash.png'),
+  plus: require('@/Assets/Icons/Common/Plus.png'),
 
   //Menu water
   menuWater: require('@/Assets/Icons/MenuWater/Water.png'),
