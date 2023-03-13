@@ -19,12 +19,14 @@ import ButtonMenu from './Components/ButtonMenu';
 import {useTranslation} from 'react-i18next';
 import ChooseML from './Components/ChooseML';
 import ListHistory from './Components/ListHistory';
+import ModalSetWater from './Components/ModalSetWater';
 
 type Props = {};
 
 const HomeScreen = (props: Props) => {
   const {t} = useTranslation('home');
   const [drank, setDrank] = useState(20);
+  const [isShowModal, setIsShowModal] = useState<boolean>(false);
 
   return (
     <View style={styles.container}>
@@ -43,26 +45,14 @@ const HomeScreen = (props: Props) => {
             onAnimationComplete={() => console.log('onAnimationComplete')}
             backgroundColor={COLORS.GRAY_LIGHT}>
             {() => (
-              <View style={styles.circleBox}>
+              <TouchableOpacity
+                style={styles.circleBox}
+                activeOpacity={0.5}
+                onPress={() => setIsShowModal(true)}>
                 <Text style={styles.circleBoxPercent}>20%</Text>
                 <Text style={styles.circleTextTitle}>{t('dailyGoal')}</Text>
                 <Text style={styles.circleTextNumber}>600/2000ml</Text>
-                <View style={styles.circleBoxAction}>
-                  <TouchableOpacity>
-                    <Image
-                      style={styles.circleBoxActionIcon}
-                      source={IMAGES.people}
-                    />
-                  </TouchableOpacity>
-                  <Text>{` | `}</Text>
-                  <TouchableOpacity>
-                    <Image
-                      style={styles.circleBoxActionIcon}
-                      source={IMAGES.cloudy}
-                    />
-                  </TouchableOpacity>
-                </View>
-              </View>
+              </TouchableOpacity>
             )}
           </AnimatedCircularProgress>
           <View style={styles.menu}>
@@ -72,6 +62,10 @@ const HomeScreen = (props: Props) => {
         </View>
         <ListHistory />
       </ScrollView>
+      <ModalSetWater
+        isVisible={isShowModal}
+        handleBack={() => setIsShowModal(false)}
+      />
     </View>
   );
 };
