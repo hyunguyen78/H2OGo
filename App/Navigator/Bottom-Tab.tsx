@@ -77,11 +77,11 @@ const BottomTab = (props: Props) => {
         },
       })}>
       <Tab.Screen name={SCREENS_NAME.HOME_STACK} component={HomeScreen} />
-      <Tab.Screen name={SCREENS_NAME.REMIND_STACK} component={RemindScreen} />
       <Tab.Screen
         name={SCREENS_NAME.STATISTICS_STACK}
         component={StatisticsScreen}
       />
+      <Tab.Screen name={SCREENS_NAME.REMIND_STACK} component={RemindScreen} />
       <Tab.Screen
         name={SCREENS_NAME.SETTINGS_STACK}
         component={SettingsScreen}
