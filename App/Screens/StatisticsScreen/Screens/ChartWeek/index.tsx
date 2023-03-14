@@ -1,11 +1,12 @@
 import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
+import {COLORS} from '@/Themes/Colors';
 
 type Props = {};
 
 const ChartWeek = (props: Props) => {
   return (
-    <View>
+    <View style={styles.container}>
       <Text>ChartWeek</Text>
     </View>
   );
@@ -13,4 +14,9 @@ const ChartWeek = (props: Props) => {
 
 export default ChartWeek;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: COLORS.WHITE,
+  },
+});

@@ -7,6 +7,7 @@ import {scale} from 'react-native-utils-scale';
 import ChartWeek from './Screens/ChartWeek';
 import ChartYear from './Screens/ChartYear';
 import ChartMonth from './Screens/ChartMonth';
+import {TYPE} from '@/Themes/Fonts';
 type Props = {};
 
 const StatisticsScreen = (props: Props) => {
@@ -34,7 +35,7 @@ const StatisticsScreen = (props: Props) => {
       <TabBar
         {...props}
         pressColor={'#FFFFFF'}
-        activeColor={'#1B65E3'}
+        activeColor={COLORS.BLUE}
         inactiveColor={'#41474D'}
         pressOpacity={0}
         indicatorStyle={styles.indicator}
@@ -69,12 +70,12 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   indicator: {
-    backgroundColor: '#1B65E3',
+    backgroundColor: COLORS.BLUE,
   },
   label: {
     color: '#41474D',
     marginVertical: scale(5),
-    // fontFamily: FONT.bold,
-    fontSize: scale(14),
+    fontSize: scale(16),
+    fontFamily: TYPE.REGULAR,
   },
 });
