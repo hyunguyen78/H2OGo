@@ -8,9 +8,10 @@ import {COLORS} from '@/Themes/Colors';
 type Props = {
   value: Date;
   onChange: (value: any) => void;
+  mode: 'time' | 'countdown' | 'datetime' | 'date';
 };
 
-const DatePickerTime: React.FC<Props> = ({value, onChange}) => {
+const DatePickerTime: React.FC<Props> = ({value, onChange, mode = 'time'}) => {
   const [isShow, setIsShow] = useState<Boolean>(false);
   const checkPlatform = Platform.OS;
   if (checkPlatform == 'android') {
@@ -25,7 +26,7 @@ const DatePickerTime: React.FC<Props> = ({value, onChange}) => {
             testID="dateTimePicker"
             timeZoneOffsetInMinutes={0}
             value={value}
-            mode={'time'}
+            mode={mode}
             is24Hour={true}
             display="default"
             onChange={(event, date) => {
@@ -44,7 +45,7 @@ const DatePickerTime: React.FC<Props> = ({value, onChange}) => {
       testID="dateTimePicker"
       timeZoneOffsetInMinutes={0}
       value={value}
-      mode={'time'}
+      mode={mode}
       is24Hour={true}
       accentColor={COLORS.BLUE}
       display="default"

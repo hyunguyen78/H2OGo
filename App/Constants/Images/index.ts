@@ -40,4 +40,8 @@ export const IMAGES = {
   menuMilkTea: require('@/Assets/Icons/MenuWater/MilkTea.png'),
   menuMilk: require('@/Assets/Icons/MenuWater/Milk.png'),
   menuCoconut: require('@/Assets/Icons/MenuWater/Coconut.png'),
+
+  //Statistics
+
+  calendar :require('@/Assets/Icons/Statistics/Calendar.png'),
 };
