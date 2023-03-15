@@ -22,6 +22,18 @@ export const resources = {
     common: {
       ok: 'Đồng ý',
     },
+    statistics: {
+      sun: "Sun",
+      mon: "Mon",
+      tue: "Tue",
+      web: "Web",
+      thu: "Thu",
+      fri: "Fri",
+      sat: "Sat",
+      week: "Week",
+      month: "Month",
+      year: "Year"
+    }
   },
 
   en: {
@@ -47,5 +59,17 @@ export const resources = {
     common: {
       ok: 'OK',
     },
+    statistics: {
+      sun: "Th 2",
+      mon: "Th 3",
+      tue: "Th 4",
+      web: "Th 5",
+      thu: "Th 6",
+      fri: "Th 7",
+      sat: "CN",
+      week: "Tuần",
+      month: "Tháng",
+      year: "Năm"
+    }
   },
 };

@@ -21,15 +21,17 @@ const ChartWeek = (props: Props) => {
   const {t} = useTranslation();
   const [valueTime, setValueTime] = useState(moment().toDate());
 
-  const dataWeek = [
-    t('common:sun'),
-    t('common:mon'),
-    t('common:tue'),
-    t('common:web'),
-    t('common:thu'),
-    t('common:fri'),
-    t('common:sat'),
+  const labelWeek = [
+    t('statistics:sun'),
+    t('statistics:mon'),
+    t('statistics:tue'),
+    t('statistics:web'),
+    t('statistics:thu'),
+    t('statistics:fri'),
+    t('statistics:sat'),
   ];
+
+  const dataWeek = [20, 40, 60, 70, 30, 40];
 
   const dataChartPie = [
     {
@@ -53,9 +55,10 @@ const ChartWeek = (props: Props) => {
       title: 'milk',
     },
   ];
+
   return (
     <View style={styles.container}>
-      <View style={styles.content}>
+      <View>
         <ModalDateTimePicker
           date={valueTime}
           type="week"
@@ -63,7 +66,7 @@ const ChartWeek = (props: Props) => {
           onChange={val => setValueTime(val)}
         />
 
-        <ChartBar labels={dataWeek} />
+        <ChartBar value={dataWeek} labels={labelWeek} />
         <ChartPie data={dataChartPie} />
       </View>
     </View>
@@ -77,5 +80,4 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: COLORS.WHITE,
   },
-  content: {},
 });

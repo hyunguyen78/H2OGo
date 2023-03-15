@@ -14,3 +14,18 @@ export const _generateGreetings = () => {
     return 'Hello';
   }
 };
+
+export const checkDaysInMonth = (val: any) => {
+  let monthData = []
+  for (let index = 1; index <= moment(val).daysInMonth(); index++) {
+    monthData.push(index.toString())
+  }
+  return monthData
+}
+export const dataLabelMonth = () => {
+  let data: string[] = []
+  for (let index = 1; index < 13; index++) {
+    data.push(index.toString())
+  }
+  return data
+}

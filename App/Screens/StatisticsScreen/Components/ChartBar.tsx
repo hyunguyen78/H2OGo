@@ -6,10 +6,18 @@ import {COLORS} from '@/Themes/Colors';
 import {TYPE} from '@/Themes/Fonts';
 
 type Props = {
-  labels: string[];
+  labels: Array<string>;
+  value: Array<number>;
+  barPercentage?: number;
+  fontSizeLabel?: number;
 };
 
-const ChartBar: React.FC<Props> = ({labels}) => {
+const ChartBar: React.FC<Props> = ({
+  labels,
+  value,
+  barPercentage = 0.7,
+  fontSizeLabel = 14,
+}) => {
   return (
     <View style={styles.container}>
       <BarChart
@@ -17,7 +25,7 @@ const ChartBar: React.FC<Props> = ({labels}) => {
           labels,
           datasets: [
             {
-              data: [20, 45, 28, 80, 99, 43, 60],
+              data: value,
             },
           ],
         }}
@@ -26,7 +34,7 @@ const ChartBar: React.FC<Props> = ({labels}) => {
         chartConfig={{
           backgroundGradientFrom: '#fff',
           backgroundGradientTo: '#fff',
-          barPercentage: 0.7,
+          barPercentage,
           height: 5000,
           fillShadowGradient: COLORS.BLUE,
           fillShadowGradientOpacity: 1,
@@ -43,6 +51,7 @@ const ChartBar: React.FC<Props> = ({labels}) => {
           },
           propsForLabels: {
             fontFamily: TYPE.REGULAR,
+            fontSize: scale(fontSizeLabel),
           },
         }}
         yLabelsOffset={scale(20)}

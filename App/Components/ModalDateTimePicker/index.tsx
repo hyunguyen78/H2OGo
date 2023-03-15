@@ -13,10 +13,11 @@ import {fontScale, scale} from 'react-native-utils-scale';
 import {COLORS} from '@/Themes/Colors';
 import {IMAGES} from '@/Constants/Images';
 import {TYPE} from '@/Themes/Fonts';
+import {useTranslation} from 'react-i18next';
 
 type Props = {
   date: Date;
-  type?: 'week' | 'month';
+  type?: 'week' | 'month' | 'year';
   mode: 'date' | 'datetime' | 'time';
   onChange: (val: any) => void;
 };
@@ -31,6 +32,7 @@ const ModalDateTimePicker: React.FC<Props> = ({
   const showDatePicker = () => {
     setDatePickerVisibility(true);
   };
+  const {t} = useTranslation();
 
   const hideDatePicker = () => {
     setDatePickerVisibility(false);
@@ -50,6 +52,16 @@ const ModalDateTimePicker: React.FC<Props> = ({
             .format('DD/MM/YYYY')} - ${moment(date)
             .endOf('week')
             .format('DD/MM/YYYY')} `}</Text>
+        )}
+        {type === 'month' && (
+          <Text style={styles.btnPickerText}>{`${t(
+            'statistics:month',
+          )} ${moment(date).format('MM')}`}</Text>
+        )}
+        {type === 'year' && (
+          <Text style={styles.btnPickerText}>{`${t('statistics:year')} ${moment(
+            date,
+          ).format('YYYY')}`}</Text>
         )}
       </TouchableOpacity>
       <DateTimePickerModal

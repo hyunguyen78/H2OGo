@@ -1,24 +1,25 @@
-import {Dimensions, SafeAreaView, StyleSheet, Text, View} from 'react-native';
+import {Dimensions, SafeAreaView, StyleSheet, Text} from 'react-native';
 import React, {useState} from 'react';
 import {COLORS} from '@/Themes/Colors';
-import {BarChart} from 'react-native-chart-kit';
 import {TabView, SceneMap, TabBar} from 'react-native-tab-view';
 import {scale} from 'react-native-utils-scale';
 import ChartWeek from './Screens/ChartWeek';
 import ChartYear from './Screens/ChartYear';
 import ChartMonth from './Screens/ChartMonth';
 import {TYPE} from '@/Themes/Fonts';
+import {useTranslation} from 'react-i18next';
 type Props = {};
 
 const StatisticsScreen = (props: Props) => {
+  const {t} = useTranslation('statistics');
   const initialLayout = {width: Dimensions.get('window').width};
 
   const [index, setIndex] = useState(0);
 
   const [routes] = useState([
-    {key: 'first', title: 'Week'},
-    {key: 'second', title: 'Month'},
-    {key: 'third', title: 'Year'},
+    {key: 'first', title: t('week')},
+    {key: 'second', title: t('month')},
+    {key: 'third', title: t('year')},
   ]);
 
   const renderScene = SceneMap({
