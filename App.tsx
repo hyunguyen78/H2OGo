@@ -5,6 +5,8 @@ import './App/Utils/Translate';
 import ModalManagementWater, {
   modalManagementWaterRef,
 } from '@/Components/ModalManagementWater';
+import {Provider} from 'react-redux';
+import {store} from '@/Config/Store';
 type Props = {};
 
 const App = (props: Props) => {
@@ -13,10 +15,10 @@ const App = (props: Props) => {
   }, []);
 
   return (
-    <>
+    <Provider store={store}>
       <Navigator />
       <ModalManagementWater ref={modalManagementWaterRef} />
-    </>
+    </Provider>
   );
 };
 
