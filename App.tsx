@@ -7,11 +7,13 @@ import ModalManagementWater, {
 } from '@/Components/ModalManagementWater';
 import {Provider} from 'react-redux';
 import {store} from '@/Config/Store';
+import {onCreateTriggerNotification} from '@/Config/Notification';
 type Props = {};
 
 const App = (props: Props) => {
   useEffect(() => {
     RNBootSplash.hide({fade: true, duration: 500});
+    onCreateTriggerNotification();
   }, []);
 
   return (

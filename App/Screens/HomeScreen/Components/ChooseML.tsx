@@ -12,7 +12,7 @@ import {COLORS} from '@/Themes/Colors';
 import {TYPE} from '@/Themes/Fonts';
 import {useTranslation} from 'react-i18next';
 import {modalManagementWater} from '@/Components/ModalManagementWater';
-import onDisplayNotification from '@/Config/Notification';
+import {onDisplayNotification} from '@/Config/Notification';
 
 type Props = {};
 

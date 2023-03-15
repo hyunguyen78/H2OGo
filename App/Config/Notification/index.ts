@@ -1,5 +1,5 @@
-import notifee from '@notifee/react-native';
-async function onDisplayNotification() {
+import notifee, { IntervalTrigger, RepeatFrequency, TimeUnit, TimestampTrigger, TriggerType } from '@notifee/react-native';
+export async function onDisplayNotification() {
   // Request permissions (required for iOS)
   await notifee.requestPermission();
 
@@ -37,4 +37,25 @@ async function onDisplayNotification() {
     },
   });
 }
-export default onDisplayNotification;
+
+
+export async function onCreateTriggerNotification() {
+
+  const trigger: IntervalTrigger = {
+    type: TriggerType.INTERVAL,
+    interval: 15,
+    timeUnit: TimeUnit.MINUTES
+  };
+
+  await notifee.createTriggerNotification(
+    {
+      id: '123',
+      title: 'Meeting with Jane',
+      body: 'Today at 11:20am',
+      android: {
+        channelId: 'your-channel-id',
+      },
+    },
+    trigger,
+  );
+}
