@@ -54,9 +54,9 @@ const ModalDateTimePicker: React.FC<Props> = ({
             .format('DD/MM/YYYY')} `}</Text>
         )}
         {type === 'month' && (
-          <Text style={styles.btnPickerText}>{`${t(
-            'statistics:month',
-          )} ${moment(date).format('MM')}`}</Text>
+          <Text style={styles.btnPickerText}>{`${moment(date).format(
+            'MM/YYYY',
+          )}`}</Text>
         )}
         {type === 'year' && (
           <Text style={styles.btnPickerText}>{`${t('statistics:year')} ${moment(

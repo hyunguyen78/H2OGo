@@ -12,6 +12,7 @@ import {COLORS} from '@/Themes/Colors';
 import {TYPE} from '@/Themes/Fonts';
 import {useTranslation} from 'react-i18next';
 import {modalManagementWater} from '@/Components/ModalManagementWater';
+import onDisplayNotification from '@/Config/Notification';
 
 type Props = {};
 
@@ -20,7 +21,10 @@ const ChooseML = (props: Props) => {
   const data = [100, 200, 300];
   const _renderItem = ({item, index}: any) => {
     return (
-      <TouchableOpacity style={styles.item} activeOpacity={0.5}>
+      <TouchableOpacity
+        style={styles.item}
+        activeOpacity={0.5}
+        onPress={onDisplayNotification}>
         <Text style={styles.itemText}>{item}ML</Text>
       </TouchableOpacity>
     );
