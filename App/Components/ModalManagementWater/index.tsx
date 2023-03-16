@@ -87,7 +87,7 @@ const ModalManagementWater = React.forwardRef((props, ref) => {
         <View style={styles.line} />
         <KeyboardAwareScrollView
           keyboardShouldPersistTaps="handled"
-          extraHeight={scale(200)}
+          extraHeight={scale(50)}
           contentContainerStyle={{flexGrow: 1}}
           showsVerticalScrollIndicator={false}>
           <FlatList
@@ -151,8 +151,8 @@ const styles = StyleSheet.create({
   },
   footerInput: {
     backgroundColor: COLORS.BLUE_LIGHT,
-    height: scale(35),
     width: scale(160),
+    height: scale(40),
     borderRadius: scale(10),
     fontFamily: TYPE.LIGHT,
     color: COLORS.BLACK,

@@ -1,4 +1,11 @@
-import {Dimensions, SafeAreaView, StyleSheet, Text} from 'react-native';
+import {
+  Dimensions,
+  Platform,
+  SafeAreaView,
+  StatusBar,
+  StyleSheet,
+  Text,
+} from 'react-native';
 import React, {useState} from 'react';
 import {COLORS} from '@/Themes/Colors';
 import {TabView, SceneMap, TabBar} from 'react-native-tab-view';
@@ -46,7 +53,12 @@ const StatisticsScreen = (props: Props) => {
     );
   };
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView
+      style={[
+        styles.container,
+        {paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0},
+      ]}>
+      <StatusBar barStyle={'dark-content'} />
       <TabView
         navigationState={{index, routes}}
         renderScene={renderScene}

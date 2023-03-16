@@ -3,6 +3,7 @@ import {
   Image,
   SafeAreaView,
   ScrollView,
+  StatusBar,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -12,7 +13,6 @@ import React, {useRef, useState} from 'react';
 import {COLORS} from '@/Themes/Colors';
 import {AnimatedCircularProgress} from 'react-native-circular-progress';
 import {fontScale, scale} from 'react-native-utils-scale';
-import {IMAGES} from '@/Constants/Images';
 import {TYPE} from '@/Themes/Fonts';
 import WaveHeader from '@/Components/WaveHeader';
 import ButtonMenu from './Components/ButtonMenu';
@@ -30,9 +30,15 @@ const HomeScreen = (props: Props) => {
 
   return (
     <View style={styles.container}>
+      <StatusBar
+        translucent
+        backgroundColor="transparent"
+        barStyle={'dark-content'}
+      />
       <ScrollView
         contentContainerStyle={{flexGrow: 1}}
-        keyboardShouldPersistTaps="handled">
+        keyboardShouldPersistTaps="handled"
+        showsVerticalScrollIndicator={false}>
         <WaveHeader />
         <View style={styles.content}>
           <AnimatedCircularProgress
@@ -78,7 +84,7 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.WHITE,
   },
   content: {
-    marginTop: scale(170),
+    marginTop: scale(150),
   },
   circle: {
     alignSelf: 'center',

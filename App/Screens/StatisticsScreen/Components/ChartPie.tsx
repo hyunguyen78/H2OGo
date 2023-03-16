@@ -1,4 +1,11 @@
-import {Dimensions, FlatList, StyleSheet, Text, View} from 'react-native';
+import {
+  Dimensions,
+  FlatList,
+  Platform,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import React from 'react';
 import {fontScale, scale} from 'react-native-utils-scale';
 import {TYPE} from '@/Themes/Fonts';
@@ -20,18 +27,16 @@ const ChartPie: React.FC<Props> = ({data}) => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Lượng nước uống </Text>
-      <View>
-        <View style={styles.chart}>
-          <Pie
-            radius={80}
-            innerRadius={50}
-            sections={data}
-            strokeCap={'butt'}
-            dividerSize={2}
-          />
-          <View style={styles.gauge}>
-            <Text style={styles.gaugeText}>1,5L</Text>
-          </View>
+      <View style={styles.content}>
+        <Pie
+          radius={80}
+          innerRadius={50}
+          sections={data}
+          strokeCap={'butt'}
+          dividerSize={2}
+        />
+        <View style={styles.gauge}>
+          <Text style={styles.gaugeText}>1,5L</Text>
         </View>
         <FlatList
           scrollEnabled={false}
@@ -56,17 +61,18 @@ const styles = StyleSheet.create({
     fontFamily: TYPE.MEDIUM,
     fontSize: fontScale(16),
   },
-  chart: {
-    margin: scale(20),
-    backgroundColor: 'red',
-    flex: 1,
+  content: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginLeft: scale(30),
+    marginTop: scale(20),
   },
+
   gauge: {
     position: 'absolute',
-    width: scale(166),
-    height: scale(160),
     alignItems: 'center',
     justifyContent: 'center',
+    left: Platform.OS === 'android' ? scale(70) : scale(60),
   },
   gaugeText: {
     color: COLORS.BLACK,
@@ -74,9 +80,7 @@ const styles = StyleSheet.create({
     fontFamily: TYPE.SEMIBOLD,
   },
   chartNote: {
-    position: 'absolute',
-    left: scale(200),
-    top: scale(40),
+    marginLeft: scale(30),
   },
   pie: {
     height: scale(20),

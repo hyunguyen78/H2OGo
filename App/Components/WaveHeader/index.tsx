@@ -17,12 +17,12 @@ const WaveHeader: React.FC<Props> = ({showText = true}) => {
 
   return (
     <View style={styles.header}>
-      <View style={{backgroundColor: COLORS.BLUE_LIGHT, height: scale(150)}}>
+      <View style={{backgroundColor: COLORS.BLUE_LIGHT, height: scale(110)}}>
         <Svg
-          height="60%"
+          height="100%"
           width="100%"
           viewBox="0 0 1440 320"
-          style={{position: 'absolute', top: 130}}>
+          style={{position: 'absolute', top: scale(90)}}>
           <Path
             fill={COLORS.BLUE_LIGHT}
             fill-opacity="1"
@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
   },
   headerBox: {
     position: 'absolute',
-    top: scale(70),
+    top: scale(55),
     left: scale(20),
   },
   headerTop: {

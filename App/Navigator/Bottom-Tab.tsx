@@ -1,4 +1,4 @@
-import {Image, StyleSheet, Text, View} from 'react-native';
+import {Image, Platform, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {SCREENS_NAME} from '@/Constants/CommonStants';
@@ -67,7 +67,7 @@ const BottomTab = (props: Props) => {
                 source={iconName}
                 style={{
                   tintColor: color,
-                  marginTop: scale(30),
+                  marginTop: Platform.OS == 'ios' ? scale(30) : 0,
                   height: scale(30),
                   width: scale(30),
                 }}
@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.WHITE,
     height: scale(45),
     width: scale(45),
-    marginTop: scale(30),
+    marginTop: Platform.OS == 'ios' ? scale(30) : 0,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 50,

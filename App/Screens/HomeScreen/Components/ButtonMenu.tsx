@@ -77,6 +77,10 @@ const ButtonMenu: React.FC<Props> = ({value}) => {
             ItemSeparatorComponent={() => (
               <View style={{width: scale(10), backgroundColor: 'red'}} />
             )}
+            columnWrapperStyle={{
+              justifyContent: 'flex-start',
+              alignItems: 'center',
+            }}
           />
           <View style={styles.line} />
           <ButtonLinear
@@ -141,7 +145,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: scale(5),
     marginVertical: scale(10),
-    width: scale(80),
+    height: scale(80),
+    flex: 0.25,
     borderRadius: scale(12),
     marginRight: scale(4),
   },
