@@ -1,4 +1,4 @@
-import notifee, { IntervalTrigger, RepeatFrequency, TimeUnit, TimestampTrigger, TriggerType } from '@notifee/react-native';
+import notifee, { AndroidImportance, EventType, IntervalTrigger, RepeatFrequency, TimeUnit, TimestampTrigger, TriggerType } from '@notifee/react-native';
 export async function onDisplayNotification() {
   // Request permissions (required for iOS)
   await notifee.requestPermission();
@@ -7,7 +7,7 @@ export async function onDisplayNotification() {
   // Create a channel (required for Android)
   const channelId = await notifee.createChannel({
     id: 'default',
-    name: 'Default Channel',
+    name: 'hihihaha',
   });
 
   // Display a notification
@@ -19,14 +19,21 @@ export async function onDisplayNotification() {
       color: '#4caf50',
       actions: [
         {
-          title: '<b>Dance</b> &#128111;',
+          title: '<b>100ML</b> &#128111;',
           pressAction: {id: 'dance'},
+
         },
         {
-          title: '<p style="color: #f44336;"><b>Cry</b> &#128557;</p>',
+          title: '<p style="color: #f44336;"><b>200ML</b> &#128557;</p>',
           pressAction: {id: 'cry'},
         },
       ],
+      progress: {
+        max: 10,
+        current: 5,
+        // indeterminate: true,
+      },
+      importance: AndroidImportance.HIGH,
     },
     ios: {
       foregroundPresentationOptions: {

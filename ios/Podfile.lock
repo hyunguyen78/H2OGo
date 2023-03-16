@@ -361,6 +361,8 @@ PODS:
     - React-perflogger (= 0.68.2)
   - ReactNativeART (1.2.0):
     - React
+  - RNBackgroundFetch (4.1.9):
+    - React-Core
   - RNBootSplash (4.5.3):
     - React-Core
   - RNCAsyncStorage (1.17.12):
@@ -442,6 +444,7 @@ DEPENDENCIES:
   - React-runtimeexecutor (from `../node_modules/react-native/ReactCommon/runtimeexecutor`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
   - "ReactNativeART (from `../node_modules/@react-native-community/art`)"
+  - RNBackgroundFetch (from `../node_modules/react-native-background-fetch`)
   - RNBootSplash (from `../node_modules/react-native-bootsplash`)
   - "RNCAsyncStorage (from `../node_modules/@react-native-async-storage/async-storage`)"
   - "RNDateTimePicker (from `../node_modules/@react-native-community/datetimepicker`)"
@@ -539,6 +542,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon"
   ReactNativeART:
     :path: "../node_modules/@react-native-community/art"
+  RNBackgroundFetch:
+    :path: "../node_modules/react-native-background-fetch"
   RNBootSplash:
     :path: "../node_modules/react-native-bootsplash"
   RNCAsyncStorage:
@@ -603,6 +608,7 @@ SPEC CHECKSUMS:
   React-runtimeexecutor: b960b687d2dfef0d3761fbb187e01812ebab8b23
   ReactCommon: 095366164a276d91ea704ce53cb03825c487a3f2
   ReactNativeART: 78edc68dd4a1e675338cd0cd113319cf3a65f2ab
+  RNBackgroundFetch: 642777e4e76435773c149d565a043d66f1781237
   RNBootSplash: 8fb33325dc3620a01984c6660c42cbd93fadcc80
   RNCAsyncStorage: 09fc8595e6d6f6d5abf16b23a56b257d9c6b7c5b
   RNDateTimePicker: 65e1d202799460b286ff5e741d8baf54695e8abd
