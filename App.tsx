@@ -8,41 +8,19 @@ import ModalManagementWater, {
 import {Provider} from 'react-redux';
 import {store} from '@/Config/Store';
 import {
+  handleActionNoti,
   onCreateTriggerNotification,
   onDisplayNotification,
 } from '@/Config/Notification';
 import {backgroundFetch} from '@/Config/BackgroundFetch';
-import notifee, {EventType} from '@notifee/react-native';
 type Props = {};
 
 const App = (props: Props) => {
   useEffect(() => {
     RNBootSplash.hide({fade: true, duration: 500});
     // onCreateTriggerNotification();
-    notifee.onBackgroundEvent(async ({type, detail}) => {
-      switch (type) {
-        case EventType.DISMISSED:
-          console.log('User dismissed notification', detail.notification);
-          break;
-        case EventType.PRESS:
-          onDisplayNotification();
-          console.log('User pressed notification', detail.notification);
-          break;
-      }
-    });
     backgroundFetch();
-    notifee.registerForegroundService(notification => {
-      return new Promise(() => {
-        notifee.onForegroundEvent(({type, detail}) => {
-          if (
-            type === EventType.ACTION_PRESS &&
-            detail.pressAction?.id === 'stop'
-          ) {
-            notifee.stopForegroundService();
-          }
-        });
-      });
-    });
+    handleActionNoti();
   }, []);
 
   return (

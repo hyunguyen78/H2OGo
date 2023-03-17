@@ -1,13 +1,21 @@
-import notifee, { AndroidImportance, EventType, IntervalTrigger, RepeatFrequency, TimeUnit, TimestampTrigger, TriggerType } from '@notifee/react-native';
+import notifee, {
+  AndroidImportance,
+  EventType,
+  IntervalTrigger,
+  RepeatFrequency,
+  TimeUnit,
+  TimestampTrigger,
+  TriggerType,
+} from '@notifee/react-native';
 export async function onDisplayNotification() {
   // Request permissions (required for iOS)
   await notifee.requestPermission();
-
 
   // Create a channel (required for Android)
   const channelId = await notifee.createChannel({
     id: 'default',
     name: 'hihihaha',
+    sound: 'water',
   });
 
   // Display a notification
@@ -17,15 +25,15 @@ export async function onDisplayNotification() {
     android: {
       channelId,
       color: '#4caf50',
+      sound: 'water',
       actions: [
         {
           title: '<b>100ML</b> &#128111;',
-          pressAction: {id: 'dance'},
-
+          pressAction: {id: '100'},
         },
         {
           title: '<p style="color: #f44336;"><b>200ML</b> &#128557;</p>',
-          pressAction: {id: 'cry'},
+          pressAction: {id: '200'},
         },
       ],
       progress: {
@@ -46,13 +54,11 @@ export async function onDisplayNotification() {
   });
 }
 
-
 export async function onCreateTriggerNotification() {
-
   const trigger: IntervalTrigger = {
     type: TriggerType.INTERVAL,
     interval: 15,
-    timeUnit: TimeUnit.MINUTES
+    timeUnit: TimeUnit.MINUTES,
   };
 
   await notifee.createTriggerNotification(
@@ -67,3 +73,14 @@ export async function onCreateTriggerNotification() {
     trigger,
   );
 }
+
+export const handleActionNoti = () => {
+  notifee.onForegroundEvent(({type, detail}) => {
+    if (type === EventType.ACTION_PRESS && detail.pressAction?.id) {
+      console.log(
+        'User pressed an action with the id: ',
+        detail.pressAction.id,
+      );
+    }
+  });
+};
