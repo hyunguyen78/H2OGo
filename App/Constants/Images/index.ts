@@ -44,4 +44,10 @@ export const IMAGES = {
   //Statistics
 
   calendar :require('@/Assets/Icons/Statistics/Calendar.png'),
+
+  //Setting
+  waterGoal : require('@/Assets/Icons/Settings/WaterGoal.png'),
+  glassOfWater1: require('@/Assets/Icons/Settings/GlassOfWater.png'),
+  language: require('@/Assets/Icons/Settings/Language.png')
+
 };
