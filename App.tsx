@@ -13,6 +13,7 @@ import {
   onDisplayNotification,
 } from '@/Config/Notification';
 import {backgroundFetch} from '@/Config/BackgroundFetch';
+import ModalDailyGoal, {modalDailyGoalRef} from '@/Components/ModalDailyGoal';
 type Props = {};
 
 const App = (props: Props) => {
@@ -27,6 +28,7 @@ const App = (props: Props) => {
     <Provider store={store}>
       <Navigator />
       <ModalManagementWater ref={modalManagementWaterRef} />
+      <ModalDailyGoal ref={modalDailyGoalRef} />
     </Provider>
   );
 };

@@ -6,27 +6,44 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React from 'react';
+import React, {createRef, useImperativeHandle, useState} from 'react';
 import Modal from 'react-native-modal';
-import {COLORS} from '@/Themes/Colors';
-import {fontScale, scale} from 'react-native-utils-scale';
-import {IMAGES} from '@/Constants/Images';
-import {TYPE} from '@/Themes/Fonts';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-import ButtonLinear from '@/Components/ButtonLinear';
+import {IMAGES} from '@/Constants/Images';
+import ButtonLinear from '../ButtonLinear';
+import {fontScale, scale} from 'react-native-utils-scale';
 import {useTranslation} from 'react-i18next';
-type Props = {
-  isVisible: boolean;
-  handleBack: () => void;
-};
+import {COLORS} from '@/Themes/Colors';
+import {TYPE} from '@/Themes/Fonts';
 
-const ModalSetWater: React.FC<Props> = ({isVisible, handleBack}) => {
+export const modalDailyGoalRef = createRef<any>();
+export const modalDailyGoal = {
+  show: (data: any) => {
+    modalDailyGoalRef.current.show(data);
+  },
+};
+const ModalDailyGoal = React.forwardRef((props, ref) => {
   const {t} = useTranslation();
+  const [isVisible, setIsVisible] = useState<boolean>(false);
+  const [value, setValue] = useState<any>(null);
+
+  useImperativeHandle(ref, () => {
+    return {
+      show: _show,
+    };
+  });
+  const _show = (data: any) => {
+    setIsVisible(true);
+    setValue(data);
+  };
+  const _handleBack = () => {
+    setIsVisible(false);
+  };
   return (
     <Modal
       isVisible={isVisible}
-      onBackdropPress={handleBack}
-      onBackButtonPress={handleBack}
+      onBackdropPress={_handleBack}
+      onBackButtonPress={_handleBack}
       animationIn={'zoomIn'}
       animationInTiming={500}
       animationOut={'zoomOut'}
@@ -41,7 +58,7 @@ const ModalSetWater: React.FC<Props> = ({isVisible, handleBack}) => {
           <View style={styles.header}>
             <View />
             <Text style={styles.headerText}>Điều chỉnh lượng nước</Text>
-            <TouchableOpacity onPress={handleBack}>
+            <TouchableOpacity onPress={_handleBack}>
               <Image source={IMAGES.close} />
             </TouchableOpacity>
           </View>
@@ -75,9 +92,9 @@ const ModalSetWater: React.FC<Props> = ({isVisible, handleBack}) => {
       </KeyboardAwareScrollView>
     </Modal>
   );
-};
+});
 
-export default ModalSetWater;
+export default ModalDailyGoal;
 
 const styles = StyleSheet.create({
   modalContainer: {

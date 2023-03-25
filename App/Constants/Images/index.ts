@@ -18,7 +18,7 @@ export const IMAGES = {
   cloudy: require('@/Assets/Icons/Home/Cloudy.png'),
   loop: require('@/Assets/Icons/Home/Loop.png'),
   dot: require('@/Assets/Icons/Home/Dot.png'),
-  glassOfWater :require('@/Assets/Icons/Home/GlassOfWater.png'),
+  glassOfWater: require('@/Assets/Icons/Home/GlassOfWater.png'),
 
   //common
 
@@ -43,11 +43,11 @@ export const IMAGES = {
 
   //Statistics
 
-  calendar :require('@/Assets/Icons/Statistics/Calendar.png'),
+  calendar: require('@/Assets/Icons/Statistics/Calendar.png'),
 
   //Setting
-  waterGoal : require('@/Assets/Icons/Settings/WaterGoal.png'),
+  waterGoal: require('@/Assets/Icons/Settings/WaterGoal.png'),
   glassOfWater1: require('@/Assets/Icons/Settings/GlassOfWater.png'),
-  language: require('@/Assets/Icons/Settings/Language.png')
-
+  language: require('@/Assets/Icons/Settings/Language.png'),
+  hourGlass: require('@/Assets/Icons/Settings/Hourglass.png'),
 };

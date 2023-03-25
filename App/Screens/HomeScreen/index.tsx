@@ -20,14 +20,13 @@ import {useTranslation} from 'react-i18next';
 import ChooseML from './Components/ChooseML';
 import ListHistory from './Components/ListHistory';
 import ModalSetWater from './Components/ModalSetWater';
+import {modalDailyGoal} from '@/Components/ModalDailyGoal';
 
 type Props = {};
 
 const HomeScreen = (props: Props) => {
   const {t} = useTranslation('home');
   const [drank, setDrank] = useState(20);
-  const [isShowModal, setIsShowModal] = useState<boolean>(false);
-
   return (
     <View style={styles.container}>
       <StatusBar
@@ -54,7 +53,7 @@ const HomeScreen = (props: Props) => {
               <TouchableOpacity
                 style={styles.circleBox}
                 activeOpacity={0.5}
-                onPress={() => setIsShowModal(true)}>
+                onPress={() => modalDailyGoal.show(123)}>
                 <Text style={styles.circleBoxPercent}>20%</Text>
                 <Text style={styles.circleTextTitle}>{t('dailyGoal')}</Text>
                 <Text style={styles.circleTextNumber}>600/2000ml</Text>
@@ -68,10 +67,6 @@ const HomeScreen = (props: Props) => {
         </View>
         <ListHistory />
       </ScrollView>
-      <ModalSetWater
-        isVisible={isShowModal}
-        handleBack={() => setIsShowModal(false)}
-      />
     </View>
   );
 };
