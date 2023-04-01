@@ -8,7 +8,7 @@ export const IMAGES = {
 
   //bottom
   home: require('@/Assets/Icons/Bottom/Home.png'),
-  remind: require('@/Assets/Icons/Bottom/Remind.png'),
+  history: require('@/Assets/Icons/Bottom/History.png'),
   statistics: require('@/Assets/Icons/Bottom/Statistics.png'),
   setting: require('@/Assets/Icons/Bottom/Setting.png'),
 

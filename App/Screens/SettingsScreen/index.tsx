@@ -18,6 +18,19 @@ import {useTranslation} from 'react-i18next';
 import {modalDailyGoal} from '@/Components/ModalDailyGoal';
 import {modalManagementWater} from '@/Components/ModalManagementWater';
 import PickerTime from '@/Components/PickerTime';
+import ModalReminderDistance, {
+  modalReminderDistance,
+  modalReminderDistanceRef,
+} from './Components/ModalReminderDistance';
+import ModalSex, {modalSex, modalSexRef} from './Components/ModalSex';
+import ModalWeight, {
+  modalWeight,
+  modalWeightRef,
+} from './Components/ModalWeight';
+import ModalLanguage, {
+  modalLanguage,
+  modalLanguageRef,
+} from './Components/ModalLanguage';
 
 type Props = {};
 
@@ -31,26 +44,32 @@ const SettingScreen = (props: Props) => {
     {
       label: 'reminderDistance',
       icon: IMAGES.hourGlass,
+      text: '60 phút',
     },
     {
       label: 'gender',
       icon: IMAGES.gender,
+      text: 'Nam',
     },
     {
       label: 'weight',
       icon: IMAGES.weight,
+      text: '60 kg',
     },
     {
       label: 'dailyGoals',
       icon: IMAGES.waterGoal,
+      text: '2000 ML',
     },
     {
       label: 'glassOfWater',
       icon: IMAGES.glassOfWater1,
+      text: 'Danh sách ly nước',
     },
     {
       label: 'language',
       icon: IMAGES.language,
+      text: 'Tiếng việt',
     },
   ];
   const _handleModal = (label: string) => {
@@ -60,13 +79,23 @@ const SettingScreen = (props: Props) => {
     if (label === 'glassOfWater') {
       return modalManagementWater.show(123);
     }
+    if (label === 'reminderDistance') {
+      return modalReminderDistance.show(123);
+    }
+    if (label === 'gender') {
+      return modalSex.show(123);
+    }
+    if (label === 'weight') {
+      return modalWeight.show(123);
+    }
+    return modalLanguage.show(23);
   };
   const _renderItem = ({item, index}: any) => {
     if (item.label === 'livingTime') {
       return (
         <View style={styles.item}>
           <View style={styles.itemRow}>
-            <Image source={item?.icon} />
+            <Image source={item?.icon} style={styles.icon} />
             <View>
               <Text style={styles.itemText}>{t(item.label)}</Text>
               <View style={{...styles.itemRow, marginTop: scale(10)}}>
@@ -85,9 +114,10 @@ const SettingScreen = (props: Props) => {
         activeOpacity={0.5}
         onPress={() => _handleModal(item.label)}>
         <View style={styles.itemRow}>
-          <Image source={item?.icon} />
+          <Image source={item?.icon} style={styles.icon} />
           <View>
             <Text style={styles.itemText}>{t(item.label)}</Text>
+            <Text style={styles.itemText100}>{item?.text}</Text>
           </View>
         </View>
         <Image source={IMAGES.right} />
@@ -106,9 +136,13 @@ const SettingScreen = (props: Props) => {
             <View style={{height: scale(0.5), backgroundColor: COLORS.GRAY}} />
           )}
           scrollEnabled={false}
-          ListHeaderComponent={() => <View style={{height: scale(20)}} />}
+          ListHeaderComponent={() => <View style={{height: scale(10)}} />}
         />
       </View>
+      <ModalReminderDistance ref={modalReminderDistanceRef} />
+      <ModalSex ref={modalSexRef} />
+      <ModalWeight ref={modalWeightRef} />
+      <ModalLanguage ref={modalLanguageRef} />
     </SafeAreaView>
   );
 };
@@ -125,8 +159,8 @@ const styles = StyleSheet.create({
     margin: scale(16),
   },
   headerTitle: {
-    fontSize: fontScale(20),
-    fontFamily: TYPE.SEMIBOLD,
+    fontSize: fontScale(22),
+    fontFamily: TYPE.SEMIBOLD_ITALIC,
   },
   item: {
     flexDirection: 'row',
@@ -140,8 +174,18 @@ const styles = StyleSheet.create({
     marginLeft: scale(10),
     color: COLORS.BLACK,
   },
+  itemText100: {
+    fontSize: fontScale(13),
+    fontFamily: TYPE.LIGHT_ITALIC,
+    marginLeft: scale(10),
+    color: COLORS.BLACK,
+    marginTop: scale(2),
+  },
   itemRow: {
     flexDirection: 'row',
     alignItems: 'center',
+  },
+  icon: {
+    tintColor: COLORS.BLUE,
   },
 });

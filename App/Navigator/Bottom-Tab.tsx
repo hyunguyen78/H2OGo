@@ -3,7 +3,7 @@ import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {SCREENS_NAME} from '@/Constants/CommonStants';
 import HomeScreen from '@/Screens/HomeScreen';
-import RemindScreen from '@/Screens/RemindScreen';
+import HistoryScreen from '@/Screens/HistoryScreen';
 import StatisticsScreen from '@/Screens/StatisticsScreen';
 import SettingsScreen from '@/Screens/SettingsScreen';
 import {scale} from 'react-native-utils-scale';
@@ -39,8 +39,8 @@ const BottomTab = (props: Props) => {
           if (route.name === SCREENS_NAME.HOME_STACK) {
             iconName = IMAGES.home;
           }
-          if (route.name === SCREENS_NAME.REMIND_STACK) {
-            iconName = IMAGES.remind;
+          if (route.name === SCREENS_NAME.HISTORYSTACK) {
+            iconName = IMAGES.history;
           }
           if (route.name === SCREENS_NAME.STATISTICS_STACK) {
             iconName = IMAGES.statistics;
@@ -81,7 +81,7 @@ const BottomTab = (props: Props) => {
         name={SCREENS_NAME.STATISTICS_STACK}
         component={StatisticsScreen}
       />
-      <Tab.Screen name={SCREENS_NAME.REMIND_STACK} component={RemindScreen} />
+      <Tab.Screen name={SCREENS_NAME.HISTORYSTACK} component={HistoryScreen} />
       <Tab.Screen
         name={SCREENS_NAME.SETTINGS_STACK}
         component={SettingsScreen}
