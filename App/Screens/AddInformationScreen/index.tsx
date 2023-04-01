@@ -1,6 +1,8 @@
 import {
   Image,
+  Platform,
   SafeAreaView,
+  StatusBar,
   StyleSheet,
   Text,
   TextInput,
@@ -141,8 +143,9 @@ export default AddInformationScreen;
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: COLORS.WHITE,
     flex: 1,
+    backgroundColor: COLORS.WHITE,
+    paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
   },
   formContainer: {
     padding: scale(20),
@@ -164,7 +167,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   fieldContentText: {
-    fontFamily: TYPE.THIN_ITALIC,
+    fontFamily: TYPE.LIGHT_ITALIC,
     color: COLORS.BLACK,
     fontSize: fontScale(15),
   },

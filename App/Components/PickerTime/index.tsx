@@ -63,10 +63,11 @@ export default memo(DatePickerTime);
 const styles = StyleSheet.create({
   btnAndroid: {
     backgroundColor: '#8080801A',
-    padding: scale(7),
+    padding: scale(10),
+    borderRadius: scale(5),
   },
   textAndroid: {
     fontSize: fontScale(16),
-    color: COLORS.WHITE,
+    color: COLORS.BLACK,
   },
 });
