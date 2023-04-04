@@ -19,8 +19,8 @@ type Props = {};
 const App = (props: Props) => {
   useEffect(() => {
     RNBootSplash.hide({fade: true, duration: 500});
-    // onCreateTriggerNotification();
-    backgroundFetch();
+    onCreateTriggerNotification();
+    // backgroundFetch();
     handleActionNoti();
   }, []);
 

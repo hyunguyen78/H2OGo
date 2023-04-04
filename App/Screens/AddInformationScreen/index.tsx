@@ -14,7 +14,7 @@ import {COLORS} from '@/Themes/Colors';
 import {fontScale, scale} from 'react-native-utils-scale';
 import {TYPE} from '@/Themes/Fonts';
 import {IMAGES} from '@/Constants/Images';
-import {useNavigation} from '@react-navigation/native';
+import {NavigationProp, useNavigation} from '@react-navigation/native';
 import moment from 'moment';
 import WheelNumberPicker from '@/Components/WheelNumberPicker';
 import {DATA_KG} from '@/Constants/AddInformation';
@@ -22,19 +22,34 @@ import DatePickerTime from '@/Components/PickerTime';
 import {SCREENS_NAME} from '@/Constants/CommonStants';
 import ButtonLinear from '@/Components/ButtonLinear';
 import WaveHeader from '@/Components/WaveHeader';
+import {useAppDispatch} from '@/Hooks';
+import {inforActions} from '@/ReduxSaga/InfoReduxSaga/InforRedux';
 
 type Props = {};
 
 const AddInformationScreen = (props: Props) => {
   const navigation = useNavigation<any>();
-  const [selectedKg, setSelectedKg] = useState<any>(60);
-  const [timeFrom, setTimeFrom] = useState(
-    moment().set({hour: 8, minute: 0}).toDate(),
+  const dispatch = useAppDispatch();
+  const [name, setName] = useState<string>('');
+  const [weight, setWeight] = useState<any>(60);
+  const [wakeUpTime, setWakeUpTime] = useState(
+    moment('8:00', 'HH:mm').toDate(),
   );
-  const [timeTo, setTimeTo] = useState(
-    moment().set({hour: 22, minute: 0}).toDate(),
-  );
-  const [sex, setSex] = useState<string>('male');
+  const [bedTime, setBedTime] = useState(moment('22:00', 'HH:mm').toDate());
+  const [gender, setGender] = useState<string>('male');
+
+  const _handleStart = () => {
+    const val = {
+      name,
+      weight,
+      gender,
+      wakeUpTime: moment(wakeUpTime).valueOf(),
+      bedTime: moment(bedTime).valueOf(),
+    };
+
+    dispatch(inforActions.addInforRequest(val));
+    navigation.navigate(SCREENS_NAME.ADD_INFORMATION);
+  };
   return (
     <SafeAreaView style={styles.container}>
       <WaveHeader showText={false} />
@@ -48,7 +63,11 @@ const AddInformationScreen = (props: Props) => {
               <Image style={styles.fieldContentImg} source={IMAGES.user} />
               <Text style={styles.fieldContentText}>Tên thường gọi</Text>
             </View>
-            <TextInput style={styles.fieldContentInput} />
+            <TextInput
+              value={name}
+              onChangeText={txt => setName(txt)}
+              style={styles.fieldContentInput}
+            />
           </View>
           <View style={styles.fieldContent}>
             <View style={styles.fieldContentTop}>
@@ -61,21 +80,22 @@ const AddInformationScreen = (props: Props) => {
                 style={[
                   styles.fieldContentBtn,
                   {
-                    backgroundColor: sex === 'male' ? COLORS.BLUE : COLORS.GRAY,
+                    backgroundColor:
+                      gender === 'male' ? COLORS.BLUE : COLORS.GRAY,
                   },
                 ]}
-                onPress={() => setSex('male')}>
+                onPress={() => setGender('male')}>
                 <Image source={IMAGES.male} style={{tintColor: COLORS.WHITE}} />
                 <Text style={styles.fieldContentBtnText}>Nam</Text>
               </TouchableOpacity>
               <TouchableOpacity
-                onPress={() => setSex('female')}
+                onPress={() => setGender('female')}
                 activeOpacity={0.5}
                 style={[
                   styles.fieldContentBtn,
                   {
                     backgroundColor:
-                      sex === 'female' ? COLORS.PINK : COLORS.GRAY,
+                      gender === 'female' ? COLORS.PINK : COLORS.GRAY,
                   },
                 ]}>
                 <Image
@@ -98,9 +118,9 @@ const AddInformationScreen = (props: Props) => {
                 textStyle={styles.scrollPickerText}
                 height={40}
                 data={DATA_KG}
-                selectedValue={selectedKg}
+                selectedValue={weight}
                 unselectedTextStyle={{color: COLORS.GRAY_LIGHT}}
-                onValueChange={val => setSelectedKg(val)}
+                onValueChange={val => setWeight(val)}
               />
               <Text style={styles.scrollPickerText}>Kg</Text>
             </View>
@@ -114,13 +134,13 @@ const AddInformationScreen = (props: Props) => {
             </View>
             <View style={styles.pickerTime}>
               <DatePickerTime
-                value={timeFrom}
-                onChange={value => setTimeFrom(value)}
+                value={wakeUpTime}
+                onChange={value => setWakeUpTime(value)}
               />
               <Text> - </Text>
               <DatePickerTime
-                value={timeTo}
-                onChange={value => setTimeTo(value)}
+                value={bedTime}
+                onChange={value => setBedTime(value)}
               />
             </View>
           </View>
@@ -131,7 +151,7 @@ const AddInformationScreen = (props: Props) => {
               width: '50%',
               alignSelf: 'center',
             }}
-            onPress={() => navigation.replace(SCREENS_NAME.MAIN_STACK)}
+            onPress={_handleStart}
           />
         </View>
       </View>
