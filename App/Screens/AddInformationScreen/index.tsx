@@ -48,7 +48,7 @@ const AddInformationScreen = (props: Props) => {
     };
 
     dispatch(inforActions.addInforRequest(val));
-    navigation.navigate(SCREENS_NAME.ADD_INFORMATION);
+    navigation.navigate(SCREENS_NAME.MAIN_STACK);
   };
   return (
     <SafeAreaView style={styles.container}>

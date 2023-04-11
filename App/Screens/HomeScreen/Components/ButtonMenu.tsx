@@ -15,11 +15,14 @@ import Modal from 'react-native-modal';
 import {dataMenu} from '@/Constants/HomeConstants';
 import {useTranslation} from 'react-i18next';
 import ButtonLinear from '@/Components/ButtonLinear';
+import {useAppDispatch} from '@/Hooks';
+import {homeActions} from '@/ReduxSaga/Home/HomeRedux';
 type Props = {
   value: string;
 };
 
 const ButtonMenu: React.FC<Props> = ({value}) => {
+  const dispatch = useAppDispatch();
   const {t} = useTranslation();
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
   const [selected, setSelected] = useState(value);
@@ -44,13 +47,16 @@ const ButtonMenu: React.FC<Props> = ({value}) => {
       </TouchableOpacity>
     );
   };
+  const iconMenu = dataMenu.find(
+    (item, index) => item.value === selected,
+  ) as any;
   return (
     <TouchableOpacity
       style={styles.menuCategory}
       activeOpacity={0.5}
       onPress={() => setIsOpenModal(true)}>
-      <Image source={IMAGES.menuWater} style={styles.menuIcon} />
-      <Text style={styles.menuCategoryText}>Nước lọc</Text>
+      <Image source={iconMenu.icon} style={styles.menuIcon} />
+      <Text style={styles.menuCategoryText}>{t(`home:${selected}`)}</Text>
       <Image source={IMAGES.loop} style={styles.iconLoop} />
       <Modal
         isVisible={isOpenModal}
@@ -86,7 +92,10 @@ const ButtonMenu: React.FC<Props> = ({value}) => {
           <ButtonLinear
             title={t('common:ok')}
             style={styles.btnOk}
-            onPress={() => {}}
+            onPress={() => {
+              dispatch(homeActions.changeMenuWater(selected));
+              setIsOpenModal(false);
+            }}
             fontSize={scale(15)}
           />
         </View>

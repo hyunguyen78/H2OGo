@@ -11,16 +11,21 @@ import {fontScale, scale} from 'react-native-utils-scale';
 import {TYPE} from '@/Themes/Fonts';
 import Pie from 'react-native-pie';
 import {COLORS} from '@/Themes/Colors';
+import {useTranslation} from 'react-i18next';
 type Props = {
   data?: Array<any>;
+  total?: number;
 };
 
-const ChartPie: React.FC<Props> = ({data}) => {
+const ChartPie: React.FC<Props> = ({data, total}) => {
+  const {t} = useTranslation();
   const _renderItem = ({item, index}: any) => {
     return (
       <View style={styles.item}>
         <View style={[styles.pie, {backgroundColor: item.color}]} />
-        <Text style={styles.itemTitle}>{item.title} (100ML)</Text>
+        <Text style={styles.itemTitle}>
+          {t(`home:${item.title}`)} ({item.amount}ML)
+        </Text>
       </View>
     );
   };
@@ -36,7 +41,7 @@ const ChartPie: React.FC<Props> = ({data}) => {
           dividerSize={2}
         />
         <View style={styles.gauge}>
-          <Text style={styles.gaugeText}>1,5L</Text>
+          <Text style={styles.gaugeText}>{total}L</Text>
         </View>
         <FlatList
           scrollEnabled={false}
@@ -69,10 +74,13 @@ const styles = StyleSheet.create({
   },
 
   gauge: {
+    flex: 1,
+    height: scale(150),
+    width: scale(150),
     position: 'absolute',
-    alignItems: 'center',
+    left: scale(5),
     justifyContent: 'center',
-    left: Platform.OS === 'android' ? scale(70) : scale(60),
+    alignItems: 'center',
   },
   gaugeText: {
     color: COLORS.BLACK,
@@ -80,7 +88,7 @@ const styles = StyleSheet.create({
     fontFamily: TYPE.SEMIBOLD,
   },
   chartNote: {
-    marginLeft: scale(30),
+    marginLeft: scale(20),
   },
   pie: {
     height: scale(20),

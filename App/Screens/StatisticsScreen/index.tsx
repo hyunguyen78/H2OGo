@@ -6,7 +6,7 @@ import {
   StyleSheet,
   Text,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {memo, useState} from 'react';
 import {COLORS} from '@/Themes/Colors';
 import {TabView, SceneMap, TabBar} from 'react-native-tab-view';
 import {scale} from 'react-native-utils-scale';
@@ -72,7 +72,7 @@ const StatisticsScreen = (props: Props) => {
   );
 };
 
-export default StatisticsScreen;
+export default memo(StatisticsScreen);
 
 const styles = StyleSheet.create({
   container: {

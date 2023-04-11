@@ -5,21 +5,72 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {memo, useEffect, useState} from 'react';
 import {COLORS} from '@/Themes/Colors';
-import {BarChart, PieChart} from 'react-native-chart-kit';
-import {scale} from 'react-native-utils-scale';
 import moment from 'moment';
 import ModalDateTimePicker from '@/Components/ModalDateTimePicker';
 import ChartBar from '../../Components/ChartBar';
 import ChartPie from '../../Components/ChartPie';
 import {useTranslation} from 'react-i18next';
+import {useAppSelector} from '@/Hooks';
+import {useIsFocused} from '@react-navigation/native';
 
 type Props = {};
 
 const ChartWeek = (props: Props) => {
   const {t} = useTranslation();
+  const isFocused = useIsFocused();
   const [valueTime, setValueTime] = useState(moment().toDate());
+  const {waterDays} = useAppSelector(state => state.home);
+  const [percentWeek, setPercentWeek] = useState<any[]>([]);
+  const [total, setTotal] = useState<number>(0);
+  const [listTotal, setListTotal] = useState<any[]>([]);
+  useEffect(() => {
+    if (isFocused) {
+      _handleWeek(valueTime);
+    }
+  }, [isFocused]);
+  const _handleWeek = (time: any) => {
+    const monday = moment(time).startOf('week');
+    let percentData = [];
+    const totals: any = [];
+    let total = 0;
+    for (let i = 0; i < 7; i++) {
+      const day = moment(monday).add(i, 'day');
+      const existingDay = waterDays.find(item =>
+        moment(item.date, 'DD/MM/YYYY').isSame(day, 'day'),
+      );
+      let amount = 0;
+      if (existingDay) {
+        existingDay.waterList.forEach((item: any) => {
+          // Tìm kiếm loại nước uống đã tồn tại trong mảng totals.
+          const index = totals.findIndex((t: any) => t.title === item.type);
+          if (index !== -1) {
+            totals[index].amount += item.amount;
+          } else {
+            totals.push({
+              title: item.type,
+              amount: item.amount,
+              color: item.color,
+            });
+          }
+          total += item.amount;
+        });
+        totals.forEach((item: any) => {
+          item.percentage = Number(((item.amount / total) * 100).toFixed(1));
+        });
+        for (let j = 0; j < existingDay.waterList.length; j++) {
+          amount += existingDay.waterList[j].amount;
+        }
+      }
+      const goal = existingDay ? existingDay.goal : 2500; // Lấy mục tiêu uống nước cho từng ngày
+      const percent = (amount / goal) * 1000;
+      percentData.push(percent);
+    }
+    setPercentWeek(percentData);
+    setTotal(total);
+    setListTotal(totals);
+  };
 
   const labelWeek = [
     t('statistics:sun'),
@@ -30,32 +81,6 @@ const ChartWeek = (props: Props) => {
     t('statistics:fri'),
     t('statistics:sat'),
   ];
-
-  const dataWeek = [20, 40, 60, 70, 30, 40];
-
-  const dataChartPie = [
-    {
-      percentage: 10,
-      color: '#C70039',
-      title: 'water',
-    },
-    {
-      percentage: 20,
-      color: '#44CD40',
-      title: 'bear',
-    },
-    {
-      percentage: 30,
-      color: '#404FCD',
-      title: 'tea',
-    },
-    {
-      percentage: 40,
-      color: '#EBD22F',
-      title: 'milk',
-    },
-  ];
-
   return (
     <View style={styles.container}>
       <View>
@@ -63,17 +88,20 @@ const ChartWeek = (props: Props) => {
           date={valueTime}
           type="week"
           mode="date"
-          onChange={val => setValueTime(val)}
+          onChange={val => {
+            setValueTime(val);
+            _handleWeek(val);
+          }}
         />
 
-        <ChartBar value={dataWeek} labels={labelWeek} />
-        <ChartPie data={dataChartPie} />
+        <ChartBar value={percentWeek} labels={labelWeek} />
+        <ChartPie data={listTotal} total={total / 1000} />
       </View>
     </View>
   );
 };
 
-export default ChartWeek;
+export default memo(ChartWeek);
 
 const styles = StyleSheet.create({
   container: {

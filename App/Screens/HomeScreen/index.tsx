@@ -9,7 +9,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, {useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {COLORS} from '@/Themes/Colors';
 import {AnimatedCircularProgress} from 'react-native-circular-progress';
 import {fontScale, scale} from 'react-native-utils-scale';
@@ -19,13 +19,14 @@ import ButtonMenu from './Components/ButtonMenu';
 import {useTranslation} from 'react-i18next';
 import ChooseML from './Components/ChooseML';
 import ListHistory from './Components/ListHistory';
-import ModalSetWater from './Components/ModalSetWater';
 import {modalDailyGoal} from '@/Components/ModalDailyGoal';
+import {useAppSelector} from '@/Hooks';
 
 type Props = {};
 
 const HomeScreen = (props: Props) => {
   const {t} = useTranslation('home');
+  const {menuWater, waterDays} = useAppSelector(state => state.home);
   const [drank, setDrank] = useState(20);
   return (
     <View style={styles.container}>
@@ -61,9 +62,9 @@ const HomeScreen = (props: Props) => {
             )}
           </AnimatedCircularProgress>
           <View style={styles.menu}>
-            <ButtonMenu value="water" />
+            <ButtonMenu value={menuWater} />
           </View>
-          <ChooseML />
+          <ChooseML type={menuWater} />
         </View>
         <ListHistory />
       </ScrollView>

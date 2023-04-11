@@ -13,18 +13,33 @@ import {TYPE} from '@/Themes/Fonts';
 import {useTranslation} from 'react-i18next';
 import {modalManagementWater} from '@/Components/ModalManagementWater';
 import {onDisplayNotification} from '@/Config/Notification';
+import {useAppDispatch} from '@/Hooks';
+import {homeActions} from '@/ReduxSaga/Home/HomeRedux';
+import moment from 'moment';
+import {dataMenu} from '@/Constants/HomeConstants';
 
-type Props = {};
+type Props = {
+  type: string;
+};
 
-const ChooseML = (props: Props) => {
+const ChooseML: React.FC<Props> = ({type}) => {
   const {t} = useTranslation();
+  const dispatch = useAppDispatch();
   const data = [100, 200, 300];
   const _renderItem = ({item, index}: any) => {
     return (
       <TouchableOpacity
         style={styles.item}
         activeOpacity={0.5}
-        onPress={onDisplayNotification}>
+        onPress={() => {
+          const val = {
+            type: type,
+            amount: item,
+            createdTime: moment().valueOf(),
+            color: dataMenu.find(item => item.value === type)?.color,
+          };
+          dispatch(homeActions.handleAddWater(val));
+        }}>
         <Text style={styles.itemText}>{item}ML</Text>
       </TouchableOpacity>
     );
