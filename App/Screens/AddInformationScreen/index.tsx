@@ -24,6 +24,7 @@ import ButtonLinear from '@/Components/ButtonLinear';
 import WaveHeader from '@/Components/WaveHeader';
 import {useAppDispatch} from '@/Hooks';
 import {inforActions} from '@/ReduxSaga/InfoReduxSaga/InforRedux';
+import {rootStoreActions} from '@/Redux';
 
 type Props = {};
 
@@ -47,7 +48,7 @@ const AddInformationScreen = (props: Props) => {
       bedTime: moment(bedTime).valueOf(),
     };
 
-    dispatch(inforActions.addInforRequest(val));
+    dispatch(rootStoreActions.addInforRequest(val));
     navigation.navigate(SCREENS_NAME.MAIN_STACK);
   };
   return (

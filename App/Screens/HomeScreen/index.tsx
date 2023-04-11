@@ -26,7 +26,7 @@ type Props = {};
 
 const HomeScreen = (props: Props) => {
   const {t} = useTranslation('home');
-  const {menuWater, waterDays} = useAppSelector(state => state.home);
+  const {menuWater, waterDays} = useAppSelector(state => state.rootStore);
   const [drank, setDrank] = useState(20);
   return (
     <View style={styles.container}>

@@ -12,11 +12,10 @@ import {COLORS} from '@/Themes/Colors';
 import {TYPE} from '@/Themes/Fonts';
 import {useTranslation} from 'react-i18next';
 import {modalManagementWater} from '@/Components/ModalManagementWater';
-import {onDisplayNotification} from '@/Config/Notification';
 import {useAppDispatch} from '@/Hooks';
-import {homeActions} from '@/ReduxSaga/Home/HomeRedux';
 import moment from 'moment';
 import {dataMenu} from '@/Constants/HomeConstants';
+import {rootStoreActions} from '@/Redux';
 
 type Props = {
   type: string;
@@ -38,7 +37,7 @@ const ChooseML: React.FC<Props> = ({type}) => {
             createdTime: moment().valueOf(),
             color: dataMenu.find(item => item.value === type)?.color,
           };
-          dispatch(homeActions.handleAddWater(val));
+          dispatch(rootStoreActions.handleAddWater(val));
         }}>
         <Text style={styles.itemText}>{item}ML</Text>
       </TouchableOpacity>

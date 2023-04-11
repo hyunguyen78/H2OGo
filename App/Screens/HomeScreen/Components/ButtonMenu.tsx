@@ -17,6 +17,7 @@ import {useTranslation} from 'react-i18next';
 import ButtonLinear from '@/Components/ButtonLinear';
 import {useAppDispatch} from '@/Hooks';
 import {homeActions} from '@/ReduxSaga/Home/HomeRedux';
+import {rootStoreActions} from '@/Redux';
 type Props = {
   value: string;
 };
@@ -93,7 +94,7 @@ const ButtonMenu: React.FC<Props> = ({value}) => {
             title={t('common:ok')}
             style={styles.btnOk}
             onPress={() => {
-              dispatch(homeActions.changeMenuWater(selected));
+              dispatch(rootStoreActions.changeMenuWater(selected));
               setIsOpenModal(false);
             }}
             fontSize={scale(15)}

@@ -1,5 +1,3 @@
-import reduxSaga from '@/ReduxSaga';
-import {infoReducer} from '@/ReduxSaga/InfoReduxSaga/InforRedux';
 import {
   MiddlewareArray,
   combineReducers,
@@ -9,15 +7,14 @@ import createSagaMiddleware from 'redux-saga';
 import logger from 'redux-logger';
 import {persistStore, persistReducer} from 'redux-persist';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {homeReducer} from '@/ReduxSaga/Home/HomeRedux';
+import {rootStoreReducer} from '@/Redux';
 
 const rootReducer = combineReducers({
-  infor: infoReducer,
-  home: homeReducer,
+  rootStore: rootStoreReducer,
 });
 
 const rootPersistConfig = {
-  key: 'infor',
+  key: 'rootStore',
   storage: AsyncStorage,
 };
 
@@ -29,7 +26,6 @@ export const store = configureStore({
 });
 
 export const persistor = persistStore(store);
-sagaMiddleware.run(reduxSaga);
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;

@@ -1,20 +1,40 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 
-interface homeState {
+interface rootState {
+  infor: any;
   menuWater: string;
   dailyGoal: number;
   waterDays: any[];
 }
-const initialState: homeState = {
+const initialState: rootState = {
+  infor: {
+    name: '',
+    gender: '',
+    weight: 0,
+    wakeUpTime: 0,
+    bedTime: 0,
+  },
   menuWater: 'water',
   dailyGoal: 25000,
   waterDays: [],
 };
 
-const homeRedux = createSlice({
-  name: 'HomeRedux',
+const rootRedux = createSlice({
+  name: 'rootRedux',
   initialState,
   reducers: {
+    addInforRequest: (state, action: PayloadAction<any>) => {
+      return {
+        ...state,
+        infor: {
+          name: action.payload.name,
+          gender: action.payload.gender,
+          weight: action.payload.weight,
+          bedTime: action.payload.bedTime,
+          wakeUpTime: action.payload.wakeUpTime,
+        },
+      };
+    },
     changeMenuWater: (state, action: PayloadAction<any>) => {
       return {
         ...state,
@@ -42,5 +62,5 @@ const homeRedux = createSlice({
   },
 });
 
-export const homeActions = homeRedux.actions;
-export const homeReducer = homeRedux.reducer;
+export const rootStoreActions = rootRedux.actions;
+export const rootStoreReducer = rootRedux.reducer;
