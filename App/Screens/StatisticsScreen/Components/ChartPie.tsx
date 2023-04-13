@@ -19,6 +19,14 @@ type Props = {
 
 const ChartPie: React.FC<Props> = ({data, total}) => {
   const {t} = useTranslation();
+
+  const emptyData = [
+    {
+      color: '#ccc',
+      percentage: 100,
+      title: 'Không có dữ liệu',
+    },
+  ];
   const _renderItem = ({item, index}: any) => {
     return (
       <View style={styles.item}>
@@ -32,26 +40,49 @@ const ChartPie: React.FC<Props> = ({data, total}) => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Lượng nước uống </Text>
-      <View style={styles.content}>
-        <Pie
-          radius={80}
-          innerRadius={50}
-          sections={data}
-          strokeCap={'butt'}
-          dividerSize={2}
-        />
-        <View style={styles.gauge}>
-          <Text style={styles.gaugeText}>{total}L</Text>
+      {total !== 0 ? (
+        <View style={styles.content}>
+          <Pie
+            radius={80}
+            innerRadius={50}
+            sections={data}
+            strokeCap={'butt'}
+            dividerSize={2}
+          />
+          <View style={styles.gauge}>
+            <Text style={styles.gaugeText}>{total}L</Text>
+          </View>
+          <FlatList
+            scrollEnabled={false}
+            data={data}
+            keyExtractor={(item, index) => index.toString()}
+            renderItem={_renderItem}
+            style={styles.chartNote}
+            ItemSeparatorComponent={() => <View style={{height: scale(10)}} />}
+          />
         </View>
-        <FlatList
-          scrollEnabled={false}
-          data={data}
-          keyExtractor={(item, index) => index.toString()}
-          renderItem={_renderItem}
-          style={styles.chartNote}
-          ItemSeparatorComponent={() => <View style={{height: scale(10)}} />}
-        />
-      </View>
+      ) : (
+        <View style={styles.content}>
+          <Pie
+            radius={80}
+            innerRadius={50}
+            sections={emptyData}
+            strokeCap={'butt'}
+            dividerSize={2}
+          />
+          <View style={styles.gauge}>
+            <Text style={styles.gaugeText}>{total}L</Text>
+          </View>
+          <FlatList
+            scrollEnabled={false}
+            data={emptyData}
+            keyExtractor={(item, index) => index.toString()}
+            renderItem={_renderItem}
+            style={styles.chartNote}
+            ItemSeparatorComponent={() => <View style={{height: scale(10)}} />}
+          />
+        </View>
+      )}
     </View>
   );
 };

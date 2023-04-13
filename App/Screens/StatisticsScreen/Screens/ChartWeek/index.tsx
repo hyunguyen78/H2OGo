@@ -4,6 +4,7 @@ import {
   Text,
   TouchableOpacity,
   View,
+  ActivityIndicator,
 } from 'react-native';
 import React, {memo, useEffect, useState} from 'react';
 import {COLORS} from '@/Themes/Colors';
@@ -14,22 +15,20 @@ import ChartPie from '../../Components/ChartPie';
 import {useTranslation} from 'react-i18next';
 import {useAppSelector} from '@/Hooks';
 import {useIsFocused} from '@react-navigation/native';
+import {scale} from 'react-native-utils-scale';
 
 type Props = {};
 
 const ChartWeek = (props: Props) => {
   const {t} = useTranslation();
-  const isFocused = useIsFocused();
   const [valueTime, setValueTime] = useState(moment().toDate());
   const {waterDays} = useAppSelector(state => state.rootStore);
   const [percentWeek, setPercentWeek] = useState<any[]>([]);
   const [total, setTotal] = useState<number>(0);
   const [listTotal, setListTotal] = useState<any[]>([]);
   useEffect(() => {
-    if (isFocused) {
-      _handleWeek(valueTime);
-    }
-  }, [isFocused]);
+    _handleWeek(valueTime);
+  }, []);
   const _handleWeek = (time: any) => {
     const monday = moment(time).startOf('week');
     let percentData = [];
@@ -101,7 +100,7 @@ const ChartWeek = (props: Props) => {
   );
 };
 
-export default memo(ChartWeek);
+export default ChartWeek;
 
 const styles = StyleSheet.create({
   container: {
