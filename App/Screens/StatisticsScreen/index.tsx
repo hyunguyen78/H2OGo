@@ -29,12 +29,6 @@ const StatisticsScreen = (props: Props) => {
     {key: 'third', title: t('year')},
   ]);
 
-  const renderScene = SceneMap({
-    first: () => <ChartWeek />,
-    second: () => <ChartMonth />,
-    third: () => <ChartYear />,
-  });
-
   const _renderLabel = ({route, focused, color}: any) => (
     <Text style={[styles.label, {color: color}]}>{route.title}</Text>
   );
@@ -61,7 +55,18 @@ const StatisticsScreen = (props: Props) => {
       <StatusBar barStyle={'dark-content'} />
       <TabView
         navigationState={{index, routes}}
-        renderScene={renderScene}
+        renderScene={({route}) => {
+          switch (route.key) {
+            case 'first':
+              return <ChartWeek />;
+            case 'second':
+              return <ChartMonth />;
+            case 'third':
+              return <ChartYear />;
+            default:
+              return null;
+          }
+        }}
         onIndexChange={setIndex}
         initialLayout={initialLayout}
         renderTabBar={_renderTabBar}
