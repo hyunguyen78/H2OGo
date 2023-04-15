@@ -15,6 +15,8 @@ import {fontScale, scale} from 'react-native-utils-scale';
 import {useTranslation} from 'react-i18next';
 import {COLORS} from '@/Themes/Colors';
 import {TYPE} from '@/Themes/Fonts';
+import {useAppDispatch} from '@/Hooks';
+import {rootStoreActions} from '@/Redux';
 
 export const modalDailyGoalRef = createRef<any>();
 export const modalDailyGoal = {
@@ -24,8 +26,9 @@ export const modalDailyGoal = {
 };
 const ModalDailyGoal = React.forwardRef((props, ref) => {
   const {t} = useTranslation();
+  const dispatch = useAppDispatch();
   const [isVisible, setIsVisible] = useState<boolean>(false);
-  const [value, setValue] = useState<any>(null);
+  const [value, setValue] = useState<number>(0);
 
   useImperativeHandle(ref, () => {
     return {
@@ -37,6 +40,10 @@ const ModalDailyGoal = React.forwardRef((props, ref) => {
     setValue(data);
   };
   const _handleBack = () => {
+    setIsVisible(false);
+  };
+  const _handleOnpress = () => {
+    dispatch(rootStoreActions.handleDailyGoal(value));
     setIsVisible(false);
   };
   return (
@@ -74,9 +81,10 @@ const ModalDailyGoal = React.forwardRef((props, ref) => {
             </Text>
             <View style={styles.input}>
               <TextInput
-                value="2000"
+                value={value.toString()}
                 style={styles.inputNumber}
                 keyboardType="number-pad"
+                onChangeText={txt => setValue(Number(txt))}
               />
               <Text style={styles.inputText}>ML</Text>
             </View>
@@ -85,7 +93,7 @@ const ModalDailyGoal = React.forwardRef((props, ref) => {
           <ButtonLinear
             title={t('common:ok')}
             style={styles.btnOk}
-            onPress={() => {}}
+            onPress={_handleOnpress}
             fontSize={scale(15)}
           />
         </View>

@@ -16,6 +16,8 @@ import {COLORS} from '@/Themes/Colors';
 import {TYPE} from '@/Themes/Fonts';
 import ButtonLinear from '@/Components/ButtonLinear';
 import {Dropdown} from 'react-native-element-dropdown';
+import {useAppDispatch} from '@/Hooks';
+import {rootStoreActions} from '@/Redux';
 
 export const modalSexRef = createRef<any>();
 export const modalSex = {
@@ -27,7 +29,7 @@ const ModalSex = React.forwardRef((props, ref) => {
   const {t} = useTranslation();
   const [isVisible, setIsVisible] = useState<boolean>(false);
   const [value, setValue] = useState<any>(null);
-
+  const dispatch = useAppDispatch();
   useImperativeHandle(ref, () => {
     return {
       show: _show,
@@ -38,6 +40,10 @@ const ModalSex = React.forwardRef((props, ref) => {
     setValue(data);
   };
   const _handleBack = () => {
+    setIsVisible(false);
+  };
+  const _handleOnpress = () => {
+    dispatch(rootStoreActions.handleGender(value));
     setIsVisible(false);
   };
   return (
@@ -75,12 +81,12 @@ const ModalSex = React.forwardRef((props, ref) => {
                 {label: 'Male', value: 'male'},
                 {label: 'Female', value: 'female'},
               ]}
-              onChange={val => console.log(val)}
+              onChange={val => setValue(val.value)}
               labelField="label"
               valueField="value"
               itemTextStyle={styles.itemTextStyle}
               style={styles.dropdown}
-              value={'female'}
+              value={value}
               selectedTextStyle={styles.itemSelected}
             />
           </View>
@@ -88,7 +94,7 @@ const ModalSex = React.forwardRef((props, ref) => {
           <ButtonLinear
             title={t('common:ok')}
             style={styles.btnOk}
-            onPress={() => {}}
+            onPress={_handleOnpress}
             fontSize={scale(15)}
           />
         </View>

@@ -19,16 +19,21 @@ import {fontScale, scale} from 'react-native-utils-scale';
 import {TYPE} from '@/Themes/Fonts';
 import {IMAGES} from '@/Constants/Images';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import {useAppDispatch, useAppSelector} from '@/Hooks';
+import {rootStoreActions} from '@/Redux';
 type Props = {};
 
 export const modalManagementWaterRef = createRef<any>();
 export const modalManagementWater = {
-  show: (data: any[]) => {
-    modalManagementWaterRef.current.show(data);
+  show: () => {
+    modalManagementWaterRef.current.show();
   },
 };
 const ModalManagementWater = React.forwardRef((props, ref) => {
+  const dispatch = useAppDispatch();
+  const {glassOfWater} = useAppSelector(state => state.rootStore);
   const [isShowModal, setIsShowModal] = useState<boolean>(false);
+  const [valueWater, setValueWater] = useState('');
   useImperativeHandle(ref, () => {
     return {show: _show};
   });
@@ -40,33 +45,51 @@ const ModalManagementWater = React.forwardRef((props, ref) => {
     setIsShowModal(false);
   };
 
+  const _handleAdd = () => {
+    const check = glassOfWater.includes(Number(valueWater));
+    if (!check) {
+      const addData = [...glassOfWater, Number(valueWater)];
+      dispatch(rootStoreActions.handleGlassOfWater(addData));
+      setValueWater('');
+    }
+  };
   const _renderItem = ({item, index}: any) => {
+    const _handleDelete = () => {
+      const deleteData = glassOfWater.filter(t => t !== item);
+      dispatch(rootStoreActions.handleGlassOfWater(deleteData));
+    };
     return (
       <View style={styles.item}>
         <View style={styles.itemLeft}>
           <Image source={IMAGES.glassOfWater} style={styles.itemIcon} />
-          <Text style={styles.itemLeftText}>100ML</Text>
+          <Text style={styles.itemLeftText}>{item} ML</Text>
         </View>
-        <TouchableOpacity activeOpacity={0.5}>
+        <TouchableOpacity activeOpacity={0.5} onPress={_handleDelete}>
           <Image source={IMAGES.trash} style={styles.itemIcon} />
         </TouchableOpacity>
       </View>
     );
   };
-  const _renderFooter = useCallback(() => {
+  const _renderFooter = () => {
+    const check = glassOfWater.includes(Number(valueWater));
     return (
       <View style={styles.footer}>
         <TextInput
           placeholder="Nhập lượng nước"
           style={styles.footerInput}
           keyboardType="number-pad"
+          value={valueWater}
+          onChangeText={txt => setValueWater(txt)}
         />
-        <TouchableOpacity>
+        <TouchableOpacity
+          activeOpacity={0.5}
+          onPress={_handleAdd}
+          disabled={valueWater === '' || check ? true : false}>
           <Image source={IMAGES.plus} style={styles.itemIcon} />
         </TouchableOpacity>
       </View>
     );
-  }, []);
+  };
   return (
     <Modal
       isVisible={isShowModal}
@@ -87,19 +110,21 @@ const ModalManagementWater = React.forwardRef((props, ref) => {
         <View style={styles.line} />
         <KeyboardAwareScrollView
           keyboardShouldPersistTaps="handled"
+          scrollEnabled={false}
           extraHeight={scale(50)}
           contentContainerStyle={{flexGrow: 1}}
           showsVerticalScrollIndicator={false}>
           <FlatList
-            data={new Array(4)}
+            data={glassOfWater}
             keyExtractor={(item, index) => index.toString()}
             renderItem={_renderItem}
             ItemSeparatorComponent={() => <View style={{height: scale(20)}} />}
-            ListFooterComponent={_renderFooter}
             style={{maxHeight: scale(350)}}
             showsVerticalScrollIndicator={false}
             contentContainerStyle={{flexGrow: 1}}
+            scrollEnabled={false}
           />
+          {_renderFooter()}
         </KeyboardAwareScrollView>
       </View>
     </Modal>

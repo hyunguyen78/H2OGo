@@ -15,6 +15,8 @@ import {useTranslation} from 'react-i18next';
 import {COLORS} from '@/Themes/Colors';
 import {TYPE} from '@/Themes/Fonts';
 import ButtonLinear from '@/Components/ButtonLinear';
+import {useAppDispatch} from '@/Hooks';
+import {rootStoreActions} from '@/Redux';
 
 export const modalReminderDistanceRef = createRef<any>();
 export const modalReminderDistance = {
@@ -25,7 +27,8 @@ export const modalReminderDistance = {
 const ModalReminderDistance = React.forwardRef((props, ref) => {
   const {t} = useTranslation();
   const [isVisible, setIsVisible] = useState<boolean>(false);
-  const [value, setValue] = useState<any>(null);
+  const [value, setValue] = useState<number>(0);
+  const dispatch = useAppDispatch();
 
   useImperativeHandle(ref, () => {
     return {
@@ -37,6 +40,10 @@ const ModalReminderDistance = React.forwardRef((props, ref) => {
     setValue(data);
   };
   const _handleBack = () => {
+    setIsVisible(false);
+  };
+  const _handleOnPress = () => {
+    dispatch(rootStoreActions.handleReminderDistance(value));
     setIsVisible(false);
   };
   return (
@@ -75,9 +82,10 @@ const ModalReminderDistance = React.forwardRef((props, ref) => {
             </Text>
             <View style={styles.input}>
               <TextInput
-                value="60"
+                value={value.toString()}
                 style={styles.inputNumber}
                 keyboardType="number-pad"
+                onChangeText={txt => setValue(Number(txt))}
               />
               <Text style={styles.inputText}>Phút</Text>
             </View>
@@ -86,7 +94,7 @@ const ModalReminderDistance = React.forwardRef((props, ref) => {
           <ButtonLinear
             title={t('common:ok')}
             style={styles.btnOk}
-            onPress={() => {}}
+            onPress={_handleOnPress}
             fontSize={scale(15)}
           />
         </View>

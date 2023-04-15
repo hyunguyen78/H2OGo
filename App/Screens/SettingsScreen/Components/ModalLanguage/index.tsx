@@ -16,6 +16,8 @@ import {COLORS} from '@/Themes/Colors';
 import {TYPE} from '@/Themes/Fonts';
 import ButtonLinear from '@/Components/ButtonLinear';
 import {Dropdown} from 'react-native-element-dropdown';
+import {useAppDispatch} from '@/Hooks';
+import {rootStoreActions} from '@/Redux';
 
 export const modalLanguageRef = createRef<any>();
 export const modalLanguage = {
@@ -25,6 +27,7 @@ export const modalLanguage = {
 };
 const ModalLanguage = React.forwardRef((props, ref) => {
   const {t} = useTranslation();
+  const dispatch = useAppDispatch();
   const [isVisible, setIsVisible] = useState<boolean>(false);
   const [value, setValue] = useState<any>(null);
 
@@ -38,6 +41,10 @@ const ModalLanguage = React.forwardRef((props, ref) => {
     setValue(data);
   };
   const _handleBack = () => {
+    setIsVisible(false);
+  };
+  const _handleOnpress = () => {
+    dispatch(rootStoreActions.handleLanguage(value));
     setIsVisible(false);
   };
   return (
@@ -68,15 +75,15 @@ const ModalLanguage = React.forwardRef((props, ref) => {
             <Text style={styles.contentText}>Điều chỉnh ngôn ngữ</Text>
             <Dropdown
               data={[
-                {label: 'Tiếng việt', value: 'vietnam'},
-                {label: 'English', value: 'english'},
+                {label: 'Tiếng việt', value: 'vi'},
+                {label: 'English', value: 'en'},
               ]}
-              onChange={val => console.log(val)}
+              onChange={val => setValue(val.value)}
               labelField="label"
               valueField="value"
               itemTextStyle={styles.itemTextStyle}
               style={styles.dropdown}
-              value={'vietnam'}
+              value={value}
               selectedTextStyle={styles.itemSelected}
             />
           </View>
@@ -84,7 +91,7 @@ const ModalLanguage = React.forwardRef((props, ref) => {
           <ButtonLinear
             title={t('common:ok')}
             style={styles.btnOk}
-            onPress={() => {}}
+            onPress={_handleOnpress}
             fontSize={scale(15)}
           />
         </View>

@@ -15,6 +15,8 @@ import {useTranslation} from 'react-i18next';
 import {COLORS} from '@/Themes/Colors';
 import {TYPE} from '@/Themes/Fonts';
 import ButtonLinear from '@/Components/ButtonLinear';
+import {useAppDispatch} from '@/Hooks';
+import {rootStoreActions} from '@/Redux';
 
 export const modalWeightRef = createRef<any>();
 export const modalWeight = {
@@ -25,8 +27,8 @@ export const modalWeight = {
 const ModalWeight = React.forwardRef((props, ref) => {
   const {t} = useTranslation();
   const [isVisible, setIsVisible] = useState<boolean>(false);
-  const [value, setValue] = useState<any>(null);
-
+  const [value, setValue] = useState<number>(0);
+  const dispatch = useAppDispatch();
   useImperativeHandle(ref, () => {
     return {
       show: _show,
@@ -37,6 +39,10 @@ const ModalWeight = React.forwardRef((props, ref) => {
     setValue(data);
   };
   const _handleBack = () => {
+    setIsVisible(false);
+  };
+  const _handleOnpress = () => {
+    dispatch(rootStoreActions.handleWeight(value));
     setIsVisible(false);
   };
   return (
@@ -71,9 +77,10 @@ const ModalWeight = React.forwardRef((props, ref) => {
             <Text style={styles.contentText}>Cân nặng của bạn là:</Text>
             <View style={styles.input}>
               <TextInput
-                value="60"
+                value={value.toString()}
                 style={styles.inputNumber}
                 keyboardType="number-pad"
+                onChangeText={txt => setValue(Number(txt))}
               />
               <Text style={styles.inputText}>Kg</Text>
             </View>
@@ -82,7 +89,7 @@ const ModalWeight = React.forwardRef((props, ref) => {
           <ButtonLinear
             title={t('common:ok')}
             style={styles.btnOk}
-            onPress={() => {}}
+            onPress={_handleOnpress}
             fontSize={scale(15)}
           />
         </View>

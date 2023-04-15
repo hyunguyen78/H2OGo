@@ -31,11 +31,30 @@ import ModalLanguage, {
   modalLanguage,
   modalLanguageRef,
 } from './Components/ModalLanguage';
+import {useAppDispatch, useAppSelector} from '@/Hooks';
+import moment from 'moment';
+import {rootStoreActions} from '@/Redux';
 
 type Props = {};
 
 const SettingScreen = (props: Props) => {
   const {t} = useTranslation('settings');
+  const dispatch = useAppDispatch();
+  const {
+    reminderDistance,
+    gender,
+    weight,
+    dailyGoal,
+    language,
+    bedTime,
+    wakeUpTime,
+  } = useAppSelector(state => {
+    return {
+      ...state.rootStore,
+      ...state.rootStore.infor,
+    };
+  });
+
   const dataSetting = [
     {
       label: 'livingTime',
@@ -44,22 +63,22 @@ const SettingScreen = (props: Props) => {
     {
       label: 'reminderDistance',
       icon: IMAGES.hourGlass,
-      text: '60 phút',
+      text: `${reminderDistance} phút`,
     },
     {
       label: 'gender',
       icon: IMAGES.gender,
-      text: 'Nam',
+      text: `${gender}`,
     },
     {
       label: 'weight',
       icon: IMAGES.weight,
-      text: '60 kg',
+      text: `${weight} kg`,
     },
     {
       label: 'dailyGoals',
       icon: IMAGES.waterGoal,
-      text: '2000 ML',
+      text: `${dailyGoal} ML`,
     },
     {
       label: 'glassOfWater',
@@ -69,26 +88,26 @@ const SettingScreen = (props: Props) => {
     {
       label: 'language',
       icon: IMAGES.language,
-      text: 'Tiếng việt',
+      text: language,
     },
   ];
   const _handleModal = (label: string) => {
     if (label === 'dailyGoals') {
-      return modalDailyGoal.show(123);
+      return modalDailyGoal.show(dailyGoal);
     }
     if (label === 'glassOfWater') {
-      return modalManagementWater.show(123);
+      return modalManagementWater.show();
     }
     if (label === 'reminderDistance') {
-      return modalReminderDistance.show(123);
+      return modalReminderDistance.show(reminderDistance);
     }
     if (label === 'gender') {
-      return modalSex.show(123);
+      return modalSex.show(gender);
     }
     if (label === 'weight') {
-      return modalWeight.show(123);
+      return modalWeight.show(weight);
     }
-    return modalLanguage.show(23);
+    return modalLanguage.show(language);
   };
   const _renderItem = ({item, index}: any) => {
     if (item.label === 'livingTime') {
@@ -99,9 +118,25 @@ const SettingScreen = (props: Props) => {
             <View>
               <Text style={styles.itemText}>{t(item.label)}</Text>
               <View style={{...styles.itemRow, marginTop: scale(10)}}>
-                <PickerTime mode="time" value={new Date()} />
+                <PickerTime
+                  mode="time"
+                  value={moment(wakeUpTime).toDate()}
+                  onChange={val =>
+                    dispatch(
+                      rootStoreActions.handleWakeUpTime(moment(val).valueOf()),
+                    )
+                  }
+                />
                 <Text>{`   - `}</Text>
-                <PickerTime mode="time" value={new Date()} />
+                <PickerTime
+                  mode="time"
+                  value={moment(bedTime).toDate()}
+                  onChange={val =>
+                    dispatch(
+                      rootStoreActions.handleBedTime(moment(val).valueOf()),
+                    )
+                  }
+                />
               </View>
             </View>
           </View>

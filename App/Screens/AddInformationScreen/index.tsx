@@ -23,7 +23,6 @@ import {SCREENS_NAME} from '@/Constants/CommonStants';
 import ButtonLinear from '@/Components/ButtonLinear';
 import WaveHeader from '@/Components/WaveHeader';
 import {useAppDispatch} from '@/Hooks';
-import {inforActions} from '@/ReduxSaga/InfoReduxSaga/InforRedux';
 import {rootStoreActions} from '@/Redux';
 
 type Props = {};

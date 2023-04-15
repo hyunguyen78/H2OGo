@@ -5,6 +5,9 @@ interface rootState {
   menuWater: string;
   dailyGoal: number;
   waterDays: any[];
+  reminderDistance: number;
+  glassOfWater: number[];
+  language: string;
 }
 const initialState: rootState = {
   infor: {
@@ -15,8 +18,11 @@ const initialState: rootState = {
     bedTime: 0,
   },
   menuWater: 'water',
-  dailyGoal: 25000,
+  dailyGoal: 2500,
   waterDays: [],
+  reminderDistance: 60,
+  glassOfWater: [100, 200, 300],
+  language: 'vi',
 };
 
 const rootRedux = createSlice({
@@ -58,6 +64,66 @@ const rootRedux = createSlice({
           goal: state.dailyGoal,
         });
       }
+    },
+    handleReminderDistance: (state, action: PayloadAction<any>) => {
+      return {
+        ...state,
+        reminderDistance: action.payload,
+      };
+    },
+    handleGender: (state, action: PayloadAction<any>) => {
+      return {
+        ...state,
+        infor: {
+          ...state.infor,
+          gender: action.payload,
+        },
+      };
+    },
+    handleWeight: (state, action: PayloadAction<any>) => {
+      return {
+        ...state,
+        infor: {
+          ...state.infor,
+          weight: action.payload,
+        },
+      };
+    },
+    handleGlassOfWater: (state, action: PayloadAction<any>) => {
+      return {
+        ...state,
+        glassOfWater: action.payload,
+      };
+    },
+    handleDailyGoal: (state, action: PayloadAction<any>) => {
+      return {
+        ...state,
+        dailyGoal: action.payload,
+      };
+    },
+    handleLanguage: (state, action: PayloadAction<any>) => {
+      return {
+        ...state,
+        language: action.payload,
+      };
+    },
+    handleWakeUpTime: (state, action: PayloadAction<any>) => {
+      return {
+        ...state,
+        infor: {
+          ...state.infor,
+          wakeUpTime: action.payload,
+        },
+      };
+    },
+    handleBedTime: (state, action: PayloadAction<any>) => {
+      return {
+        ...state,
+        infor: {
+          ...state.infor,
+          bedTime: action.payload,
+        },
+      };
     },
   },
 });
