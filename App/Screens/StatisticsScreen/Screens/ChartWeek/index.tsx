@@ -21,14 +21,17 @@ type Props = {};
 
 const ChartWeek = (props: Props) => {
   const {t} = useTranslation();
+  const isFocused = useIsFocused();
   const [valueTime, setValueTime] = useState(moment().toDate());
   const {waterDays} = useAppSelector(state => state.rootStore);
   const [percentWeek, setPercentWeek] = useState<any[]>([]);
   const [total, setTotal] = useState<number>(0);
   const [listTotal, setListTotal] = useState<any[]>([]);
   useEffect(() => {
-    _handleWeek(valueTime);
-  }, []);
+    if (isFocused) {
+      _handleWeek(valueTime);
+    }
+  }, [isFocused]);
   const _handleWeek = (time: any) => {
     const monday = moment(time).startOf('week');
     let percentData = [];

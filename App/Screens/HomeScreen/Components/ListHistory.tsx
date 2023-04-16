@@ -4,18 +4,25 @@ import {fontScale, scale} from 'react-native-utils-scale';
 import {TYPE} from '@/Themes/Fonts';
 import {COLORS} from '@/Themes/Colors';
 import {IMAGES} from '@/Constants/Images';
+import {dataMenu} from '@/Constants/HomeConstants';
+import moment from 'moment';
 
-type Props = {};
+type Props = {
+  data: any[];
+};
 
-const ListHistory = (props: Props) => {
-  const _renderItem = () => {
+const ListHistory: React.FC<Props> = ({data}) => {
+  const _renderItem = ({item, index}: any) => {
+    const iconMenu = dataMenu.find(t => t.value === item.type) as any;
     return (
       <View style={styles.item}>
         <View style={styles.itemLeft}>
-          <Image source={IMAGES.menuWater} style={styles.itemIcon} />
-          <Text style={styles.itemTextTime}>9:30</Text>
+          <Image source={iconMenu.icon} style={styles.itemIcon} />
+          <Text style={styles.itemTextTime}>
+            {moment(item.createdTime).format('HH:mm')}
+          </Text>
         </View>
-        <Text style={styles.itemTextNumber}>200ML</Text>
+        <Text style={styles.itemTextNumber}>{item?.amount}ML</Text>
       </View>
     );
   };
@@ -37,7 +44,7 @@ const ListHistory = (props: Props) => {
     <View style={styles.history}>
       <Text style={styles.historyTitle}>Lịch sử hôm nay</Text>
       <FlatList
-        data={[1, 2, 3, 4, 5, 6]}
+        data={data}
         keyExtractor={(item, index) => index.toString()}
         renderItem={_renderItem}
         ListEmptyComponent={_listEmpty}

@@ -21,13 +21,35 @@ import ChooseML from './Components/ChooseML';
 import ListHistory from './Components/ListHistory';
 import {modalDailyGoal} from '@/Components/ModalDailyGoal';
 import {useAppSelector} from '@/Hooks';
+import moment from 'moment';
 
 type Props = {};
 
 const HomeScreen = (props: Props) => {
   const {t} = useTranslation('home');
-  const {menuWater, waterDays} = useAppSelector(state => state.rootStore);
+  const {menuWater, waterDays, dailyGoal} = useAppSelector(
+    state => state.rootStore,
+  );
   const [drank, setDrank] = useState(20);
+  const [dataToDay, setDataToDay] = useState<any>();
+  const [totalWater, setTotalWater] = useState<number>(0);
+  useEffect(() => {
+    const data = waterDays.find(item => {
+      const itemDate = moment(item.date, 'DD/MM/YYYY').format('DD/MM/YYYY');
+      return itemDate === moment().format('DD/MM/YYYY');
+    });
+    setDataToDay(data);
+    let total = 0;
+    data?.waterList?.forEach((item: any) => {
+      total = total + item.amount;
+    });
+    setTotalWater(total);
+  }, [waterDays]);
+
+  useEffect(() => {
+    setDrank((totalWater / dailyGoal) * 100);
+  }, [totalWater, dailyGoal]);
+
   return (
     <View style={styles.container}>
       <StatusBar
@@ -54,10 +76,13 @@ const HomeScreen = (props: Props) => {
               <TouchableOpacity
                 style={styles.circleBox}
                 activeOpacity={0.5}
-                onPress={() => modalDailyGoal.show(123)}>
-                <Text style={styles.circleBoxPercent}>20%</Text>
+                onPress={() => modalDailyGoal.show(dailyGoal)}>
+                <Text style={styles.circleBoxPercent}>{drank.toFixed()}%</Text>
                 <Text style={styles.circleTextTitle}>{t('dailyGoal')}</Text>
-                <Text style={styles.circleTextNumber}>600/2000ml</Text>
+                <Text
+                  style={
+                    styles.circleTextNumber
+                  }>{`${totalWater}/${dailyGoal}ml`}</Text>
               </TouchableOpacity>
             )}
           </AnimatedCircularProgress>
@@ -66,7 +91,7 @@ const HomeScreen = (props: Props) => {
           </View>
           <ChooseML type={menuWater} />
         </View>
-        <ListHistory />
+        <ListHistory data={dataToDay?.waterList} />
       </ScrollView>
     </View>
   );

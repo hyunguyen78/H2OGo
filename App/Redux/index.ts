@@ -1,4 +1,5 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
+import moment from 'moment';
 
 interface rootState {
   infor: any;
@@ -56,9 +57,9 @@ const rootRedux = createSlice({
         item => item.date === dateString,
       );
       if (waterDayIndex >= 0) {
-        state.waterDays[waterDayIndex].waterList.push(action.payload);
+        state.waterDays[waterDayIndex].waterList.unshift(action.payload);
       } else {
-        state.waterDays.push({
+        state.waterDays.unshift({
           date: dateString,
           waterList: [action.payload],
           goal: state.dailyGoal,

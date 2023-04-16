@@ -16,7 +16,6 @@ import {dataMenu} from '@/Constants/HomeConstants';
 import {useTranslation} from 'react-i18next';
 import ButtonLinear from '@/Components/ButtonLinear';
 import {useAppDispatch} from '@/Hooks';
-import {homeActions} from '@/ReduxSaga/Home/HomeRedux';
 import {rootStoreActions} from '@/Redux';
 type Props = {
   value: string;
