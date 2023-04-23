@@ -2,7 +2,7 @@ import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {SCREENS_NAME} from '@/Constants/CommonStants';
+import {SCREENS_NAME} from '@/Constants/CommonConstants';
 import BottomTab from './Bottom-Tab';
 import AddInformationScreen from '@/Screens/AddInformationScreen';
 type Props = {};

@@ -1,7 +1,7 @@
 import {Image, Platform, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {SCREENS_NAME} from '@/Constants/CommonStants';
+import {SCREENS_NAME} from '@/Constants/CommonConstants';
 import HomeScreen from '@/Screens/HomeScreen';
 import HistoryScreen from '@/Screens/HistoryScreen';
 import StatisticsScreen from '@/Screens/StatisticsScreen';

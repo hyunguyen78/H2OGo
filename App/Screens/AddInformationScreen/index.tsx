@@ -19,7 +19,7 @@ import moment from 'moment';
 import WheelNumberPicker from '@/Components/WheelNumberPicker';
 import {DATA_KG} from '@/Constants/AddInformation';
 import DatePickerTime from '@/Components/PickerTime';
-import {SCREENS_NAME} from '@/Constants/CommonStants';
+import {SCREENS_NAME} from '@/Constants/CommonConstants';
 import ButtonLinear from '@/Components/ButtonLinear';
 import WaveHeader from '@/Components/WaveHeader';
 import {useAppDispatch} from '@/Hooks';
