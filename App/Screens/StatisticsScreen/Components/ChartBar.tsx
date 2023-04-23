@@ -38,7 +38,7 @@ const ChartBar: React.FC<Props> = ({
           height: 5000,
           fillShadowGradient: COLORS.BLUE,
           fillShadowGradientOpacity: 1,
-          decimalPlaces: 0, // optional, defaults to 2dp
+          decimalPlaces: 1, // optional, defaults to 2dp
           color: (opacity = 1) => COLORS.BLUE,
           labelColor: (opacity = 1) => `rgba(0, 0, 0, 1)`,
           style: {
@@ -55,6 +55,7 @@ const ChartBar: React.FC<Props> = ({
           },
         }}
         yLabelsOffset={scale(20)}
+        yAxisSuffix="L"
       />
     </View>
   );

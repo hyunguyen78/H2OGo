@@ -28,11 +28,12 @@ const ChartPie: React.FC<Props> = ({data, total}) => {
     },
   ];
   const _renderItem = ({item, index}: any) => {
+    const itemMount = item.amount;
     return (
       <View style={styles.item}>
         <View style={[styles.pie, {backgroundColor: item.color}]} />
         <Text style={styles.itemTitle}>
-          {t(`home:${item.title}`)} ({item.amount}ML)
+          {t(`home:${item.title}`)} ({(itemMount / 1000).toFixed(1)}L)
         </Text>
       </View>
     );
@@ -50,7 +51,7 @@ const ChartPie: React.FC<Props> = ({data, total}) => {
             dividerSize={2}
           />
           <View style={styles.gauge}>
-            <Text style={styles.gaugeText}>{total}L</Text>
+            <Text style={styles.gaugeText}>{total?.toFixed(1)}L</Text>
           </View>
           <FlatList
             scrollEnabled={false}
@@ -71,7 +72,7 @@ const ChartPie: React.FC<Props> = ({data, total}) => {
             dividerSize={2}
           />
           <View style={styles.gauge}>
-            <Text style={styles.gaugeText}>{total}L</Text>
+            <Text style={styles.gaugeText}>{total.toFixed(1)}L</Text>
           </View>
           <FlatList
             scrollEnabled={false}
@@ -129,6 +130,7 @@ const styles = StyleSheet.create({
   item: {
     flexDirection: 'row',
     alignItems: 'center',
+    flex: 1,
   },
   itemTitle: {
     marginHorizontal: scale(5),

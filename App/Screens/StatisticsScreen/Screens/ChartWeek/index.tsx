@@ -24,9 +24,10 @@ const ChartWeek = (props: Props) => {
   const isFocused = useIsFocused();
   const [valueTime, setValueTime] = useState(moment().toDate());
   const {waterDays} = useAppSelector(state => state.rootStore);
-  const [percentWeek, setPercentWeek] = useState<any[]>([]);
+  const [dataWeek, setDataWeek] = useState<any[]>([]);
   const [total, setTotal] = useState<number>(0);
   const [listTotal, setListTotal] = useState<any[]>([]);
+
   useEffect(() => {
     if (isFocused) {
       _handleWeek(valueTime);
@@ -34,7 +35,7 @@ const ChartWeek = (props: Props) => {
   }, [isFocused]);
   const _handleWeek = (time: any) => {
     const monday = moment(time).startOf('week');
-    let percentData = [];
+    let weekData = [];
     const totals: any = [];
     let total = 0;
     for (let i = 0; i < 7; i++) {
@@ -65,11 +66,9 @@ const ChartWeek = (props: Props) => {
           amount += existingDay.waterList[j].amount;
         }
       }
-      const goal = existingDay ? existingDay.goal : 2500; // Lấy mục tiêu uống nước cho từng ngày
-      const percent = (amount / goal) * 1000;
-      percentData.push(percent);
+      weekData.push((amount / 1000).toFixed(1));
     }
-    setPercentWeek(percentData);
+    setDataWeek(weekData);
     setTotal(total);
     setListTotal(totals);
   };
@@ -96,7 +95,7 @@ const ChartWeek = (props: Props) => {
           }}
         />
 
-        <ChartBar value={percentWeek} labels={labelWeek} />
+        <ChartBar value={dataWeek} labels={labelWeek} />
         <ChartPie data={listTotal} total={total / 1000} />
       </View>
     </View>

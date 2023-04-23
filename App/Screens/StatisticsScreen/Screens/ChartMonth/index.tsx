@@ -15,7 +15,7 @@ const ChartMonth = (props: Props) => {
   const {t} = useTranslation();
   const [valueTime, setValueTime] = useState(moment().toDate());
   const {waterDays} = useAppSelector(state => state.rootStore);
-  const [percentMonth, setPercentMonth] = useState<number[]>([]);
+  const [dataMonth, setDataMonth] = useState<any[]>([]);
   const [total, setTotal] = useState<number>(0);
   const [listTotal, setListTotal] = useState<any[]>([]);
 
@@ -29,7 +29,7 @@ const ChartMonth = (props: Props) => {
     const year = today.year();
     const daysInMonth = moment(`${year}-${month + 1}`, 'YYYY-MM').daysInMonth();
     const label = [];
-    let percentData = [];
+    let monthData = [];
     const totals: any = [];
     let total = 0;
     for (let i = 1; i <= daysInMonth; i++) {
@@ -62,11 +62,9 @@ const ChartMonth = (props: Props) => {
           amount += existingDay.waterList[j].amount;
         }
       }
-      const goal = existingDay ? existingDay.goal : 2500; // Lấy mục tiêu uống nước cho từng ngày
-      const percent = (amount / goal) * 1000;
-      percentData.push(percent);
+      monthData.push((amount / 1000).toFixed(1));
     }
-    setPercentMonth(percentData);
+    setDataMonth(monthData);
     setTotal(total);
     setListTotal(totals);
   };
@@ -85,7 +83,7 @@ const ChartMonth = (props: Props) => {
         />
 
         <ChartBar
-          value={percentMonth}
+          value={dataMonth}
           labels={checkDaysInMonth(valueTime)}
           barPercentage={0.2}
           fontSizeLabel={7}
