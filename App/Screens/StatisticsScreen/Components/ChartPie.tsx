@@ -24,7 +24,7 @@ const ChartPie: React.FC<Props> = ({data, total}) => {
     {
       color: '#ccc',
       percentage: 100,
-      title: 'Không có dữ liệu',
+      title: 'noData',
     },
   ];
   const _renderItem = ({item, index}: any) => {
@@ -33,7 +33,8 @@ const ChartPie: React.FC<Props> = ({data, total}) => {
       <View style={styles.item}>
         <View style={[styles.pie, {backgroundColor: item.color}]} />
         <Text style={styles.itemTitle}>
-          {t(`home:${item.title}`)} ({(itemMount / 1000).toFixed(1)}L)
+          {t(`home:${item.title}`)}
+          {item.amount && <Text> ({(itemMount / 1000).toFixed(1)}L)</Text>}
         </Text>
       </View>
     );

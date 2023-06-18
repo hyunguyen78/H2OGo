@@ -7,80 +7,57 @@ import notifee, {
   TimestampTrigger,
   TriggerType,
 } from '@notifee/react-native';
-export async function onDisplayNotification() {
-  // Request permissions (required for iOS)
-  await notifee.requestPermission();
 
-  // Create a channel (required for Android)
+export const notificationApp = async () => {
+  // Định nghĩa kênh thông báo để hiển thị thông báo của bạn.
   const channelId = await notifee.createChannel({
     id: 'default',
-    name: 'hihihaha',
-    sound: 'water',
+    name: 'Thông báo mặc định',
+    vibration: true, // Có rung khi có thông báo
   });
 
-  // Display a notification
-  await notifee.displayNotification({
-    title: 'H20 Go Thông báo',
-    body: 'Đến giờ uống nước rồi Huy ơi !!!',
+  // Đặt thông báo vào lúc 8 giờ sáng
+  const morningTrigger: TimestampTrigger = {
+    type: TriggerType.TIMESTAMP,
+    timestamp: new Date(new Date().setHours(8, 0, 0)).getTime(),
+  };
+  const myNotification: any = {
+    title: 'Hãy uống nước nào!',
+    body: 'Đã đến lúc uống một cốc nước!',
     android: {
       channelId,
-      color: '#4caf50',
-      sound: 'water',
-      actions: [
-        {
-          title: '<b>100ML</b> &#128111;',
-          pressAction: {id: '100'},
-        },
-        {
-          title: '<p style="color: #f44336;"><b>200ML</b> &#128557;</p>',
-          pressAction: {id: '200'},
-        },
-      ],
-      progress: {
-        max: 10,
-        current: 5,
-        // indeterminate: true,
-      },
-      importance: AndroidImportance.HIGH,
+      sound: true, // Có tiếng bíp khi có thông báo
     },
     ios: {
-      foregroundPresentationOptions: {
-        badge: true,
-        sound: true,
-        banner: true,
-        list: true,
-      },
+      sound: true, // Có tiếng bíp khi có thông báo
     },
-  });
-}
-
-export async function onCreateTriggerNotification() {
-  const trigger: IntervalTrigger = {
-    type: TriggerType.INTERVAL,
-    interval: 15,
-    timeUnit: TimeUnit.MINUTES,
+    data: {
+      screen: 'waterReminder',
+    },
+    trigger: morningTrigger,
   };
+  await notifee.displayNotification(myNotification);
 
-  await notifee.createTriggerNotification(
-    {
-      id: '123',
-      title: 'Meeting with Jane',
-      body: 'Today at 11:20am',
-      android: {
-        channelId: 'your-channel-id',
-      },
+  // Đặt thông báo lặp lại sau mỗi giờ đến 22 giờ tối
+  const repeatTrigger: any = {
+    type: TriggerType.INTERVAL,
+    interval: 60 * 60 * 1000, // Một giờ
+    startTime: new Date(new Date().setHours(8, 0, 0)),
+    endTime: new Date(new Date().setHours(21, 0, 0)),
+  };
+  const notificationTrigger: any = {
+    title: 'Đừng quên uống nước nhé',
+    body: 'Hãy chú ý đến thói quen uống nước của bạn',
+    android: {
+      channelId,
+      sound: true,
     },
-    trigger,
-  );
-}
-
-export const handleActionNoti = () => {
-  notifee.onForegroundEvent(({type, detail}) => {
-    if (type === EventType.ACTION_PRESS && detail.pressAction?.id) {
-      console.log(
-        'User pressed an action with the id: ',
-        detail.pressAction.id,
-      );
-    }
-  });
+    ios: {
+      sound: true,
+    },
+    data: {
+      screen: 'water-reminder',
+    },
+  };
+  await notifee.createTriggerNotification(notificationTrigger, repeatTrigger);
 };

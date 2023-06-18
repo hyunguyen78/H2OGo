@@ -26,7 +26,7 @@ export const modalLanguage = {
   },
 };
 const ModalLanguage = React.forwardRef((props, ref) => {
-  const {t} = useTranslation();
+  const {t, i18n} = useTranslation();
   const dispatch = useAppDispatch();
   const [isVisible, setIsVisible] = useState<boolean>(false);
   const [value, setValue] = useState<any>(null);
@@ -44,6 +44,7 @@ const ModalLanguage = React.forwardRef((props, ref) => {
     setIsVisible(false);
   };
   const _handleOnpress = () => {
+    i18n.changeLanguage(value);
     dispatch(rootStoreActions.handleLanguage(value));
     setIsVisible(false);
   };

@@ -18,6 +18,7 @@ export const resources = {
       wine: 'Rượu vang',
       coconut: 'Nước dừa',
       add: 'Thêm mới',
+      noData: 'Không có dữ liệu',
     },
     common: {
       ok: 'Đồng ý',
@@ -65,6 +66,7 @@ export const resources = {
       wine: 'Wine',
       coconut: 'Coconut',
       add: 'Add',
+      noData: 'No data',
     },
     common: {
       ok: 'OK',

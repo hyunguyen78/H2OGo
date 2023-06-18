@@ -16,6 +16,7 @@ import {useAppDispatch} from '@/Hooks';
 import moment from 'moment';
 import {dataMenu} from '@/Constants/HomeConstants';
 import {rootStoreActions} from '@/Redux';
+import {notificationApp} from '@/Config/Notification';
 
 type Props = {
   type: string;
@@ -38,6 +39,7 @@ const ChooseML: React.FC<Props> = ({type}) => {
             color: dataMenu.find(item => item.value === type)?.color,
           };
           dispatch(rootStoreActions.handleAddWater(val));
+          notificationApp();
         }}>
         <Text style={styles.itemText}>{item}ML</Text>
       </TouchableOpacity>

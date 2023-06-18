@@ -7,21 +7,15 @@ import ModalManagementWater, {
 } from '@/Components/ModalManagementWater';
 import {Provider} from 'react-redux';
 import {store} from '@/Config/Store';
-import {
-  handleActionNoti,
-  onCreateTriggerNotification,
-  onDisplayNotification,
-} from '@/Config/Notification';
-import {backgroundFetch} from '@/Config/BackgroundFetch';
 import ModalDailyGoal, {modalDailyGoalRef} from '@/Components/ModalDailyGoal';
+import '@/Utils/Translate';
+import {notificationApp} from '@/Config/Notification';
 type Props = {};
 
 const App = (props: Props) => {
   useEffect(() => {
     RNBootSplash.hide({fade: true, duration: 500});
-    onCreateTriggerNotification();
-    // backgroundFetch();
-    handleActionNoti();
+    notificationApp();
   }, []);
 
   return (
